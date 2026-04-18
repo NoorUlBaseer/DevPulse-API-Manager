@@ -98,6 +98,7 @@
 
   <script src="script.js"></script>
   <script src="auth.js"></script>
+  <script>auth.redirectIfLoggedIn();</script> <!-- redirect to dashboard if already logged in -->
   
   <script>
     document.getElementById('loginForm').addEventListener('submit', (e) => {

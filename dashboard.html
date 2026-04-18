@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <title>DevPulse - Dashboard</title>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { neon: '#22c55e', cyber: '#06b6d4', darkness: '#020617' },
+          fontFamily: { mono: ['JetBrains Mono','monospace'] }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-darkness text-slate-300 font-mono min-h-screen grid-bg overflow-x-hidden">
+  <script src="auth.js"></script>
+  <script>auth.protectRoute();</script>
+
+  <aside id="sidebar" class="fixed inset-y-0 left-0 w-56 lg:w-72 bg-slate-950/90 backdrop-blur-2xl border-r border-white/10 hidden md:flex flex-col z-50 overflow-hidden">
+    <div class="p-6 flex items-center gap-3 shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon to-cyber flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-white">DevPulse</h1>
+        <p class="text-xs uppercase tracking-widest text-neon font-bold">API Manager</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 min-h-0 px-4 pt-1 pb-4 space-y-2 overflow-y-auto overflow-x-hidden custom-scrollbar">
+      <div class="mb-4">
+        <p class="text-xs font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest">General</p>
+        
+        <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg border border-dashed border-white/10 text-slate-400 hover:text-white hover:border-neon/50 hover:bg-white/5 transition-all group min-h-[44px]">
+          <svg class="w-5 h-5 shrink-0 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+          </svg>
+          
+          <span class="text-base font-semibold">Exit to Home</span>
+        </a>
+      </div>
+
+      <p class="text-xs font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest">Main Menu</p>
+
+      <a id="dashboardSidebarLink" href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-neon/10 border border-neon/30 transition-all min-h-[44px] text-white" style="margin-bottom: 4px; display:flex; align-items:center; color:#ffffff; opacity:1; visibility:visible; font-size:16px; line-height:1.3;">
+        <svg style="width:1.25rem; height:1.25rem; color:#22c55e; flex-shrink:0; display:block; opacity:1; visibility:visible;" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+        </svg>
+
+        <span class="text-base font-bold text-white" style="display:block; opacity:1; visibility:visible; color:#ffffff;">Dashboard</span>
+      </a>
+
+      <a href="users.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-1a4 4 0 00-4-4h-1m-4 5H6a4 4 0 01-4-4v-1a4 4 0 014-4h6m0 0a4 4 0 100-8 4 4 0 000 8zm6 0a3 3 0 100-6 3 3 0 000 6z"/>
+        </svg>
+
+        <span class="text-base font-semibold">Users</span>
+      </a>
+
+      <a href="products.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+        </svg>
+
+        <span class="text-base font-semibold">Products</span>
+      </a>
+
+      <a href="analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19h16M6 16V8m4 8V5m4 11v-4m4 4V3"/>
+        </svg>
+
+        <span class="text-base font-semibold">Analytics</span>
+      </a>
+    </nav>
+
+    <div class="p-4 border-t border-white/5 shrink-0">
+      <div id="sidebarEngineBlock" class="p-4 border border-white/5 rounded-xl bg-darkness/50" style="display:block; opacity:1; visibility:visible;">
+        
+        <p class="text-sm text-slate-500 uppercase font-bold mb-2 tracking-tighter" style="display:block; opacity:1; visibility:visible;">System Engine</p>
+
+        <div class="flex items-center gap-2" style="display:flex; opacity:1; visibility:visible;">
+          <div class="w-2 h-2 rounded-full bg-neon animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+          
+          <span class="text-sm text-slate-300 font-bold uppercase" style="display:block; opacity:1; visibility:visible; color:#cbd5e1;">V-1.0 Online</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="md:ml-56 lg:ml-72 transition-all flex flex-col min-h-screen">
+    
+    <header class="sticky top-0 z-40 bg-darkness/80 backdrop-blur-md border-b border-white/5">
+      <div class="px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4 min-w-0 md:hidden">
+
+          <div class="text-2xl font-extrabold text-white truncate">DevPulse</div>
+          <div class="text-sm text-slate-400">API Manager</div>
+        </div>
+
+        <div class="hidden md:block">
+          <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">System / Dashboard</span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-3 lg:gap-6 text-slate-200 flex-wrap justify-end">
+          <div class="flex items-center gap-2 px-2.5 py-1.5 sm:px-3 bg-white/5 rounded-full border border-white/5 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+
+            <span class="text-[10px] sm:text-xs font-bold text-slate-400 whitespace-nowrap">API Status: Optimal</span>
+          </div>
+
+          <div class="flex flex-col items-end min-w-0 shrink-0">
+            <span id="userInfo" class="text-sm font-bold text-white break-words text-right max-w-[12rem] lg:max-w-[16rem]"></span>
+
+            <span class="text-xs text-neon uppercase tracking-tighter whitespace-nowrap">Developer Tier</span>
+          </div>
+
+          <button id="logoutBtn" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500 hover:text-white transition-all text-sm font-bold whitespace-nowrap">
+            Log Out
+          </button>
+        </nav>
+
+        <div class="md:hidden">
+          <button aria-label="menu" aria-expanded="false" id="menuBtn" class="text-slate-200">☰</button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden fixed left-4 right-4 z-[70] rounded-xl border border-white/10 bg-slate-950/95 backdrop-blur-xl px-4 py-4 shadow-2xl" style="top: calc(var(--header-height, 4rem) + 0.5rem);">
+        <nav class="flex flex-col gap-3">
+          <a href="index.html" class="inline-flex items-center px-3 py-2 rounded-md text-neon border border-neutral-700 bg-neutral-800/30 font-medium mobile-link">Exit to Home</a>
+
+          <a href="dashboard.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md bg-neon text-neutral-900 font-semibold shadow-[0_0_16px_rgba(34,197,94,0.28)] mobile-link">Dashboard</a>
+          
+          <a href="users.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Users</a>
+          
+          <a href="products.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Products</a>
+          
+          <a href="analytics.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Analytics</a>
+          
+          <div class="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/10 bg-white/5">
+            <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">API Status: Optimal</span>
+          </div>
+          
+          <div class="rounded-lg border border-white/10 bg-white/5 px-3 py-3">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">System Engine</p>
+            <div class="flex items-center gap-2 mt-2">
+              <div class="w-2 h-2 rounded-full bg-neon animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+
+              <span class="text-sm text-slate-300 font-bold uppercase">V-1.0 Online</span>
+            </div>
+          </div>
+          
+          <div class="mt-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Developer Tier</p>
+            <p id="mobileUserInfo" class="text-sm font-bold text-white mt-1 break-words"></p>
+          </div>
+          
+          <button id="mobileLogoutBtn" class="inline-flex items-center justify-center px-3 py-2 rounded-md text-red-300 border border-red-500/30 bg-red-500/10 hover:bg-red-500 hover:text-white font-medium">
+            Log Out
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <div class="md:hidden px-4 pt-4">
+      <div class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md">
+        <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">System / Dashboard</span>
+
+        <span class="text-[10px] uppercase tracking-widest font-bold text-neon">Overview</span>
+      </div>
+    </div>
+
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+        <div class="glass-card p-5 sm:p-6 pr-20 sm:pr-24 rounded-3xl relative overflow-hidden group">
+          <div class="absolute top-3 right-3 p-2 rounded-xl bg-slate-900/70 ring-1 ring-white/10 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+            <svg class="w-10 h-10 sm:w-14 sm:h-14 xl:w-16 xl:h-16 text-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+
+          <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Total Users</div>
+          <div id="totalUsers" class="text-3xl sm:text-4xl font-black text-white">0</div>
+
+          <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-bold text-neon">
+            <span>+12.5%</span>
+            <span class="text-slate-600">vs last month</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 sm:p-6 pr-20 sm:pr-24 rounded-3xl relative overflow-hidden group">
+          <div class="absolute top-3 right-3 p-2 rounded-xl bg-slate-900/70 ring-1 ring-white/10 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+            <svg class="w-10 h-10 sm:w-14 sm:h-14 xl:w-16 xl:h-16 text-cyber" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.05.5-9 4.77-9 9.95 0 5.52 4.48 10 10 10 3.12 0 5.91-1.42 7.75-3.66l-2.6-1.53C15.9 18.23 14.07 19 12 19z"/></svg>
+          </div>
+
+          <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">API Requests</div>
+          <div id="totalOrders" class="text-3xl sm:text-4xl font-black text-white">0</div>
+
+          <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-bold text-cyber">
+            <span>Stable</span>
+            <span class="text-slate-600">Latency: 24ms</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 sm:p-6 pr-20 sm:pr-24 rounded-3xl relative overflow-hidden group">
+          <div class="absolute top-3 right-3 p-2 rounded-xl bg-slate-900/70 ring-1 ring-white/10 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+            <svg class="w-10 h-10 sm:w-14 sm:h-14 xl:w-16 xl:h-16 text-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2v1a3 3 0 003 3 3 3 0 00-3 3v1h16v-1a3 3 0 00-3-3 3 3 0 003-3V8H4zm8 1a3 3 0 110 6 3 3 0 010-6z"/></svg>
+          </div>
+
+          <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Projected Revenue</div>
+          <div id="revenue" class="text-2xl sm:text-3xl xl:text-4xl font-black text-white leading-tight break-words">PKR 0</div>
+
+          <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-bold text-neon">
+            <span class="px-2 py-0.5 bg-neon/20 rounded">Billed</span>
+            <span class="text-slate-600">Net 30</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div class="lg:col-span-2 glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+            <div>
+              <h3 class="text-xl font-bold text-white leading-none">Traffic Analysis</h3>
+              <p class="text-sm text-slate-500 mt-2">Historical data for API request volume</p>
+            </div>
+
+            <select id="trafficRange" class="w-full sm:w-auto bg-slate-800 text-sm font-bold border-none rounded-lg px-3 py-2 text-slate-300">
+              <option value="7">Last 7 Days</option>
+              <option value="30">Last 30 Days</option>
+            </select>
+          </div>
+
+          <div id="chartWrapper" class="relative h-48 sm:h-56 lg:h-64">
+            <svg id="chart" class="w-full h-full"></svg>
+            <div id="chartTooltip" class="hidden absolute z-20 min-w-[170px] rounded-xl border border-white/15 bg-slate-950/95 px-3 py-2 text-xs shadow-[0_8px_24px_rgba(0,0,0,0.45)] pointer-events-none">
+              
+              <p id="tooltipDate" class="text-neon font-bold text-[11px] uppercase tracking-wider"></p>
+              <p id="tooltipRequests" class="mt-1 text-slate-200"></p>
+              <p id="tooltipLatency" class="text-slate-300"></p>
+              <p id="tooltipError" class="text-slate-400"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+          <h3 class="text-xl font-bold text-white mb-6">System Logs</h3>
+          
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-neon/20 flex-shrink-0 flex items-center justify-center">
+                <div class="w-2 h-2 rounded-full bg-neon"></div>
+              </div>
+
+              <div>
+                <p class="text-sm font-bold text-slate-200">New API Key Generated</p>
+                <p class="text-xs text-slate-500 font-medium">Production-Key-04 • 2m ago</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-cyber/20 flex-shrink-0 flex items-center justify-center">
+                <div class="w-2 h-2 rounded-full bg-cyber"></div>
+              </div>
+              
+              <div>
+                <p class="text-sm font-bold text-slate-200">Rate Limit Warning</p>
+                <p class="text-xs text-slate-500 font-medium">IP: 192.168.1.1 • 15m ago</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4 opacity-50">
+              <div class="w-8 h-8 rounded-full bg-slate-700 flex-shrink-0 flex items-center justify-center">
+                <div class="w-2 h-2 rounded-full bg-slate-400"></div>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-200">Backup Completed</p>
+                <p class="text-xs text-slate-500 font-medium">System Core • 1h ago</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="w-full mt-8 py-3 border border-white/5 hover:bg-white/5 rounded-xl text-xs font-bold uppercase tracking-widest text-slate-400">View All Logs</button>
+        </div>
+      </div>
+
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <div>
+            <h3 class="text-xl font-bold text-white leading-none">Additional Metrics</h3>
+            <p class="text-sm text-slate-500 mt-2">Operational health and usage indicators</p>
+          </div>
+
+          <span class="text-xs uppercase tracking-widest font-bold text-neon">Live Snapshot</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+            <p class="text-xs uppercase tracking-widest font-bold text-slate-500">Error Rate</p>
+            <p class="text-2xl font-black text-white mt-2">0.42%</p>
+            <p class="text-xs font-bold text-neon mt-2">-0.08% Today</p>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+            <p class="text-xs uppercase tracking-widest font-bold text-slate-500">Avg Response</p>
+            <p class="text-2xl font-black text-white mt-2">118ms</p>
+            <p class="text-xs font-bold text-cyber mt-2">P95: 241ms</p>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+            <p class="text-xs uppercase tracking-widest font-bold text-slate-500">Server Uptime</p>
+            <p class="text-2xl font-black text-white mt-2">99.96%</p>
+            <p class="text-xs font-bold text-neon mt-2">30-Day Window</p>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+            <p class="text-xs uppercase tracking-widest font-bold text-slate-500">Active Sessions</p>
+            <p class="text-2xl font-black text-white mt-2">1,284</p>
+            <p class="text-xs font-bold text-cyber mt-2">+4.2% Last Hour</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-auto p-4 sm:p-6 border-t border-white/5 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-sm font-bold text-neon tracking-widest uppercase">© DevPulse API Manager</p>
+      
+        <div class="flex gap-6 text-xs uppercase font-bold tracking-widest">
+            <a href="#" class="text-neon hover:text-neon/90">About</a>
+            <a href="#" class="text-neon hover:text-neon/90">Contact</a>
+            <a href="#" class="text-neon hover:text-neon/90">Privacy</a>
+        </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Load user data and populate dashboard metrics
+    const users = auth.getStoredUsers();
+    document.getElementById('totalUsers').textContent = users.length;
+    document.getElementById('totalOrders').textContent = (users.length * 65).toLocaleString();
+    const revenuePkr = users.length * 12450;
+    document.getElementById('revenue').textContent = `PKR ${revenuePkr.toLocaleString('en-PK')}`;
+
+    // Display logged-in user's email
+    const loggedEmail = localStorage.getItem('devpulse_loggedInUser') || 'guest@devpulse.com';
+    document.getElementById('userInfo').textContent = loggedEmail;
+    const mobileUserInfo = document.getElementById('mobileUserInfo');
+    if (mobileUserInfo) mobileUserInfo.textContent = loggedEmail;
+
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      auth.setLoggedIn(false);
+      location.href = 'login.html';
+    }); 
+    // Mobile logout
+    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+    if (mobileLogoutBtn) {
+      mobileLogoutBtn.addEventListener('click', () => {
+        auth.setLoggedIn(false);
+        location.href = 'login.html';
+      });
+    }
+
+    function renderChart(days = 30) { // function to render chart based on selected range
+      const data = days === 30
+        ? [42, 48, 51, 46, 58, 62, 57, 64, 69, 73, 71, 78, 84, 81, 76, 88, 92, 90, 86, 95, 98, 94, 89, 87, 91, 96, 99, 97, 93, 95]
+        : [45, 80, 55, 90, 70, 100, 85];
+        
+      const svg = document.getElementById('chart');
+      const chartWrapper = document.getElementById('chartWrapper');
+      const chartTooltip = document.getElementById('chartTooltip');
+      const tooltipDate = document.getElementById('tooltipDate');
+      const tooltipRequests = document.getElementById('tooltipRequests');
+      const tooltipLatency = document.getElementById('tooltipLatency');
+      const tooltipError = document.getElementById('tooltipError');
+      const isSmallScreen = window.innerWidth < 768;
+      const width = days === 30 ? 840 : 600;
+      const height = 200;
+      const barWidth = days === 30 ? 14 : 40;
+      const gap = days === 30 ? 14 : 35;
+      const baselineOffset = isSmallScreen ? 6 : 8;
+      const topPadding = isSmallScreen ? 16 : 20;
+      const availableHeight = height - topPadding - baselineOffset;
+      const minValue = Math.min(...data);
+      const maxValue = Math.max(...data);
+      const valueRange = Math.max(maxValue - minValue, 1);
+      const minFillRatio = isSmallScreen ? 0.38 : 0.3;
+      const labels = data.map((_, i) => {
+        const d = new Date();
+        d.setHours(0, 0, 0, 0);
+        d.setDate(d.getDate() - (data.length - 1 - i));
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      });
+
+      const hideTooltip = () => { // function to hide tooltip when not hovering over bars
+        if (chartTooltip) chartTooltip.classList.add('hidden');
+      };
+
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.setAttribute('preserveAspectRatio', 'none');
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#22c55e" />
+            <stop offset="100%" stop-color="#06b6d4" />
+          </linearGradient>
+        </defs>
+      `;
+
+      data.forEach((val, i) => { // calculate bar position and size based on value
+        const x = i * (barWidth + gap) + 28;
+        const normalized = (val - minValue) / valueRange;
+        const barHeight = availableHeight * (minFillRatio + normalized * (1 - minFillRatio));
+        const y = height - barHeight - baselineOffset;
+
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', barWidth);
+        rect.setAttribute('height', barHeight);
+        rect.setAttribute('rx', '8');
+        rect.setAttribute('fill', 'url(#barGradient)');
+        rect.setAttribute('class', 'hover:opacity-80 transition-all cursor-pointer');
+
+        rect.addEventListener('mouseenter', (event) => { // show tooltip with dynamic data based on hovered bar
+          if (!chartTooltip || !chartWrapper || !tooltipDate || !tooltipRequests || !tooltipLatency || !tooltipError) return;
+          const requests = Math.round(val * 120);
+          const latency = Math.max(18, 160 - val);
+          const errorRate = Math.max(0.15, (100 - val) / 45).toFixed(2);
+
+          tooltipDate.textContent = labels[i];
+          tooltipRequests.textContent = `Requests: ${requests.toLocaleString()}`;
+          tooltipLatency.textContent = `Latency: ${latency}ms`;
+          tooltipError.textContent = `Error Rate: ${errorRate}%`;
+          chartTooltip.classList.remove('hidden');
+
+          const wrapperBox = chartWrapper.getBoundingClientRect();
+          const left = event.clientX - wrapperBox.left + 10;
+          const top = event.clientY - wrapperBox.top - 56;
+          chartTooltip.style.left = `${left}px`;
+          chartTooltip.style.top = `${top}px`;
+        });
+
+        rect.addEventListener('mousemove', (event) => { // update tooltip position as mouse moves over the bar
+          if (!chartTooltip || !chartWrapper) return;
+          const wrapperBox = chartWrapper.getBoundingClientRect();
+          const maxLeft = wrapperBox.width - chartTooltip.offsetWidth - 8;
+          const clampedLeft = Math.max(8, Math.min(event.clientX - wrapperBox.left + 10, maxLeft));
+          const clampedTop = Math.max(8, event.clientY - wrapperBox.top - 56);
+          chartTooltip.style.left = `${clampedLeft}px`;
+          chartTooltip.style.top = `${clampedTop}px`;
+        });
+
+        // Hide tooltip when mouse leaves the bar or the chart area
+        rect.addEventListener('mouseleave', hideTooltip);
+        svg.appendChild(rect);
+      });
+
+      svg.addEventListener('mouseleave', hideTooltip); // also hide tooltip if mouse leaves the entire chart area
+    }
+
+    // Initial render and event listener for range selection and window resize to maintain responsiveness
+    const trafficRange = document.getElementById('trafficRange');
+    const rerenderTrafficChart = () => renderChart(Number(trafficRange?.value || 30));
+    rerenderTrafficChart();
+    if (trafficRange) {
+      trafficRange.addEventListener('change', () => {
+        rerenderTrafficChart();
+      });
+    }
+    window.addEventListener('resize', rerenderTrafficChart);
+  </script>
+</body>
+</html>

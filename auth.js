@@ -35,6 +35,12 @@ function protectRoute() { // call this on protected pages to redirect if not log
   }
 }
 
+function redirectIfLoggedIn() { // call this on login/register page to redirect to dashboard if already logged in
+  if (isLoggedIn()) {
+    location.href = 'dashboard.html';
+  }
+}
+
 function showFormMessage(container, msg, type = 'error') { // function to show messages in forms, type can be 'error' or 'success'
   container.textContent = msg;
   container.classList.remove('text-red-400', 'text-green-400');
@@ -43,7 +49,7 @@ function showFormMessage(container, msg, type = 'error') { // function to show m
 
 window.auth = { // expose auth functions globally
   getStoredUsers,
-  getStoredUser: function() { // get the currently logged in user's details (email and password) - returns null if not logged in or user not found
+  getStoredUser: function() { // get the currently logged in user's details (email and password) 
     const users = getStoredUsers();
     return users.length ? users[0] : null;
   },
@@ -52,6 +58,7 @@ window.auth = { // expose auth functions globally
   setLoggedIn,
   isLoggedIn,
   protectRoute,
+  redirectIfLoggedIn,
   showFormMessage
 };
 
