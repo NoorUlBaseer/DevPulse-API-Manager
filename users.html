@@ -222,7 +222,7 @@
 
           <input id="emailInput" type="email" placeholder="Email" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber" required>
           
-          <select id="roleInput" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber" required>
+          <select id="roleInput" class="cyber-select w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber" required>
             <option value="">Select Role</option>
             <option value="Admin">Admin</option>
             <option value="Manager">Manager</option>
@@ -230,7 +230,7 @@
             <option value="Support">Support</option>
           </select>
           
-          <select id="statusInput" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber" required>
+          <select id="statusInput" class="cyber-select w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber" required>
             <option value="">Select Status</option>
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
@@ -249,7 +249,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <input id="userSearch" type="text" placeholder="Search by name or email" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber">
 
-          <select id="roleFilter" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber">
+          <select id="roleFilter" class="cyber-select w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber">
             <option value="all">All Roles</option>
             <option value="Admin">Admin</option>
             <option value="Manager">Manager</option>
@@ -257,7 +257,7 @@
             <option value="Support">Support</option>
           </select>
           
-          <select id="statusFilter" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber">
+          <select id="statusFilter" class="cyber-select w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber">
             <option value="all">All Statuses</option>
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
@@ -385,6 +385,92 @@
 
     let pendingConfirmAction = null;
 
+    function enhanceCyberSelect(select) { // Progressive enhancement for select elements to create a custom dropdown UI
+      if (!select || select.dataset.cyberEnhanced === 'true') return;
+
+      const shell = document.createElement('div');
+      shell.className = 'cyber-select-shell';
+      const trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'cyber-select-trigger';
+      trigger.innerHTML = '<span class="cyber-select-trigger-label"></span><span class="cyber-select-trigger-meta">▾</span>';
+      const menu = document.createElement('div');
+      menu.className = 'cyber-select-menu';
+
+      select.classList.add('cyber-select-native');
+      select.dataset.cyberEnhanced = 'true';
+      select.parentNode.insertBefore(shell, select);
+      shell.appendChild(select);
+      shell.appendChild(trigger);
+      shell.appendChild(menu);
+
+      const labelNode = trigger.querySelector('.cyber-select-trigger-label');
+
+      const updateTrigger = () => {
+        const selectedOption = select.options[select.selectedIndex];
+        labelNode.textContent = selectedOption ? selectedOption.textContent : 'Select an option';
+        menu.querySelectorAll('.cyber-select-option').forEach((optionButton) => {
+          optionButton.classList.toggle('is-selected', optionButton.dataset.value === select.value);
+        });
+      };
+
+      const buildMenu = () => {
+        menu.innerHTML = '';
+        Array.from(select.options).forEach((option) => {
+          const optionButton = document.createElement('button');
+          optionButton.type = 'button';
+          optionButton.className = 'cyber-select-option';
+          optionButton.textContent = option.textContent;
+          optionButton.dataset.value = option.value;
+          if (option.value === select.value) optionButton.classList.add('is-selected');
+          optionButton.addEventListener('click', () => {
+            select.value = option.value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            shell.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            updateTrigger();
+          });
+          menu.appendChild(optionButton);
+        });
+        updateTrigger();
+      };
+
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.addEventListener('click', () => {
+        const isOpen = shell.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', String(isOpen));
+        if (isOpen) buildMenu();
+      });
+
+      select.addEventListener('change', updateTrigger);
+      select.addEventListener('focus', () => shell.classList.add('is-open'));
+      select.addEventListener('blur', () => shell.classList.remove('is-open'));
+      document.addEventListener('click', (event) => {
+        if (!shell.contains(event.target)) {
+          shell.classList.remove('is-open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      updateTrigger();
+    }
+
+    function refreshCyberSelect(select) { // Refresh the custom dropdown UI to reflect changes in the underlying select element
+      if (!select) return;
+      const shell = select.closest('.cyber-select-shell');
+      if (!shell) return;
+      const triggerLabel = shell.querySelector('.cyber-select-trigger-label');
+      const selectedOption = select.options[select.selectedIndex];
+      if (triggerLabel) triggerLabel.textContent = selectedOption ? selectedOption.textContent : 'Select an option';
+      const optionButtons = shell.querySelectorAll('.cyber-select-option');
+      optionButtons.forEach((optionButton) => {
+        optionButton.classList.toggle('is-selected', optionButton.dataset.value === select.value);
+      });
+    }
+
+    [roleInput, statusInput, roleFilter, statusFilter].forEach(enhanceCyberSelect);
+
     function loadUsers() {
       let parsed = [];
       try {
@@ -459,6 +545,8 @@
     function resetForm() {
       editingUserIdInput.value = '';
       userForm.reset();
+      refreshCyberSelect(roleInput);
+      refreshCyberSelect(statusInput);
       saveUserBtn.textContent = 'Add User';
       formModeBadge.textContent = 'Add Mode';
     }
@@ -613,6 +701,8 @@
         emailInput.value = selected.email;
         roleInput.value = selected.role;
         statusInput.value = selected.status;
+        refreshCyberSelect(roleInput);
+        refreshCyberSelect(statusInput);
         saveUserBtn.textContent = 'Update User';
         formModeBadge.textContent = 'Edit Mode';
         showMessage(`Editing ${selected.name}`, 'success');
