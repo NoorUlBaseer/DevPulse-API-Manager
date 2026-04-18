@@ -194,42 +194,48 @@
     <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
       
       <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-        <div class="glass-card p-5 sm:p-6 pr-20 sm:pr-24 rounded-3xl relative overflow-hidden group">
-          <div class="absolute top-3 right-3 p-2 rounded-xl bg-slate-900/70 ring-1 ring-white/10 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+        <div class="metric-card rounded-3xl p-5 sm:p-6 overflow-hidden relative">
+          <div class="metric-icon-box p-2 rounded-2xl bg-slate-900/75 ring-1 ring-white/10">
             <svg class="w-10 h-10 sm:w-14 sm:h-14 xl:w-16 xl:h-16 text-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
           </div>
-
-          <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Total Users</div>
-          <div id="totalUsers" class="text-3xl sm:text-4xl font-black text-white">0</div>
-
+          <div class="metric-card-header">
+            <p class="metric-kicker">Total Users</p>
+            <span class="metric-badge is-neon">Directory</span>
+          </div>
+          <div id="totalUsers" class="metric-value mt-4">0</div>
+          <p class="metric-caption">Live count of registered users</p>
           <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-bold text-neon">
             <span>+12.5%</span>
             <span class="text-slate-600">vs last month</span>
           </div>
         </div>
 
-        <div class="glass-card p-5 sm:p-6 pr-20 sm:pr-24 rounded-3xl relative overflow-hidden group">
-          <div class="absolute top-3 right-3 p-2 rounded-xl bg-slate-900/70 ring-1 ring-white/10 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+        <div class="metric-card rounded-3xl p-5 sm:p-6 overflow-hidden relative">
+          <div class="metric-icon-box p-2 rounded-2xl bg-slate-900/75 ring-1 ring-white/10">
             <svg class="w-10 h-10 sm:w-14 sm:h-14 xl:w-16 xl:h-16 text-cyber" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.05.5-9 4.77-9 9.95 0 5.52 4.48 10 10 10 3.12 0 5.91-1.42 7.75-3.66l-2.6-1.53C15.9 18.23 14.07 19 12 19z"/></svg>
           </div>
-
-          <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">API Requests</div>
-          <div id="totalOrders" class="text-3xl sm:text-4xl font-black text-white">0</div>
-
+          <div class="metric-card-header">
+            <p class="metric-kicker">API Requests</p>
+            <span class="metric-badge is-cyber">Traffic</span>
+          </div>
+          <div id="totalOrders" class="metric-value mt-4">0</div>
+          <p class="metric-caption">Generated from current user base</p>
           <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-bold text-cyber">
             <span>Stable</span>
             <span class="text-slate-600">Latency: 24ms</span>
           </div>
         </div>
 
-        <div class="glass-card p-5 sm:p-6 pr-20 sm:pr-24 rounded-3xl relative overflow-hidden group">
-          <div class="absolute top-3 right-3 p-2 rounded-xl bg-slate-900/70 ring-1 ring-white/10 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
-            <svg class="w-10 h-10 sm:w-14 sm:h-14 xl:w-16 xl:h-16 text-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2v1a3 3 0 003 3 3 3 0 00-3 3v1h16v-1a3 3 0 00-3-3 3 3 0 003-3V8H4zm8 1a3 3 0 110 6 3 3 0 010-6z"/></svg>
+        <div class="metric-card rounded-3xl p-5 sm:p-6 overflow-hidden relative">
+          <div class="metric-icon-box p-2 rounded-2xl bg-slate-900/75 ring-1 ring-white/10">
+            <svg class="w-10 h-10 sm:w-14 sm:h-14 xl:w-16 xl:h-16 text-neon" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2v1a3 3 0 003 3 3 3 0 00-3 3v1h16v-1a3 3 0 00-3-3V8H4zm8 1a3 3 0 110 6 3 3 0 010-6z"/></svg>
           </div>
-
-          <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Projected Revenue</div>
-          <div id="revenue" class="text-2xl sm:text-3xl xl:text-4xl font-black text-white leading-tight break-words">PKR 0</div>
-
+          <div class="metric-card-header">
+            <p class="metric-kicker">Projected Revenue</p>
+            <span class="metric-badge is-amber">Billing</span>
+          </div>
+          <div id="revenue" class="metric-value mt-4 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight break-words">PKR 0</div>
+          <p class="metric-caption">Estimated from active user volume</p>
           <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-bold text-neon">
             <span class="px-2 py-0.5 bg-neon/20 rounded">Billed</span>
             <span class="text-slate-600">Net 30</span>
@@ -245,10 +251,7 @@
               <p class="text-sm text-slate-500 mt-2">Historical data for API request volume</p>
             </div>
 
-            <select id="trafficRange" class="w-full sm:w-auto bg-slate-800 text-sm font-bold border-none rounded-lg px-3 py-2 text-slate-300">
-              <option value="7">Last 7 Days</option>
-              <option value="30">Last 30 Days</option>
-            </select>
+            <div id="trafficRangeShell" class="cyber-select-shell w-full sm:w-auto sm:min-w-[180px]"></div>
           </div>
 
           <div id="chartWrapper" class="relative h-48 sm:h-56 lg:h-64">
@@ -480,8 +483,89 @@
       svg.addEventListener('mouseleave', hideTooltip); // also hide tooltip if mouse leaves the entire chart area
     }
 
+    function enhanceCyberSelect(select) {
+      if (!select || select.dataset.cyberEnhanced === 'true') return;
+
+      const shell = document.createElement('div');
+      shell.className = 'cyber-select-shell';
+      const trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'cyber-select-trigger';
+      trigger.innerHTML = '<span class="cyber-select-trigger-label"></span><span class="cyber-select-trigger-meta">▾</span>';
+      const menu = document.createElement('div');
+      menu.className = 'cyber-select-menu';
+
+      select.classList.add('cyber-select-native');
+      select.dataset.cyberEnhanced = 'true';
+      select.parentNode.insertBefore(shell, select);
+      shell.appendChild(select);
+      shell.appendChild(trigger);
+      shell.appendChild(menu);
+
+      const labelNode = trigger.querySelector('.cyber-select-trigger-label');
+
+      const updateTrigger = () => {
+        const selectedOption = select.options[select.selectedIndex];
+        labelNode.textContent = selectedOption ? selectedOption.textContent : 'Select an option';
+        menu.querySelectorAll('.cyber-select-option').forEach((optionButton) => {
+          optionButton.classList.toggle('is-selected', optionButton.dataset.value === select.value);
+        });
+      };
+
+      const buildMenu = () => {
+        menu.innerHTML = '';
+        Array.from(select.options).forEach((option) => {
+          const optionButton = document.createElement('button');
+          optionButton.type = 'button';
+          optionButton.className = 'cyber-select-option';
+          optionButton.textContent = option.textContent;
+          optionButton.dataset.value = option.value;
+          if (option.value === select.value) optionButton.classList.add('is-selected');
+          optionButton.addEventListener('click', () => {
+            select.value = option.value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            shell.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            updateTrigger();
+          });
+          menu.appendChild(optionButton);
+        });
+        updateTrigger();
+      };
+
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.addEventListener('click', () => {
+        const isOpen = shell.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', String(isOpen));
+        if (isOpen) buildMenu();
+      });
+
+      select.addEventListener('change', updateTrigger);
+      select.addEventListener('focus', () => shell.classList.add('is-open'));
+      select.addEventListener('blur', () => shell.classList.remove('is-open'));
+      document.addEventListener('click', (event) => {
+        if (!shell.contains(event.target)) {
+          shell.classList.remove('is-open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      updateTrigger();
+    }
+
+    const trafficRange = document.createElement('select');
+    trafficRange.id = 'trafficRange';
+    trafficRange.className = 'cyber-select w-full sm:w-auto';
+    trafficRange.innerHTML = `
+      <option value="7">Last 7 Days</option>
+      <option value="30">Last 30 Days</option>
+    `;
+    const trafficRangeShell = document.getElementById('trafficRangeShell');
+    if (trafficRangeShell) trafficRangeShell.appendChild(trafficRange);
+    enhanceCyberSelect(trafficRange);
+
     // Initial render and event listener for range selection and window resize to maintain responsiveness
-    const trafficRange = document.getElementById('trafficRange');
     const rerenderTrafficChart = () => renderChart(Number(trafficRange?.value || 30));
     rerenderTrafficChart();
     if (trafficRange) {
