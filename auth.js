@@ -1,17 +1,50 @@
-function getStoredUsers() {
+const STORAGE_KEY = 'devpulse_users'; // key to store users in localStorage
+const ALLOWED_EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|outlook|hotmail|icloud)\.com$/i; // only allow common email providers
+
+function isAllowedEmail(email) { // validate email against allowed providers
+  return ALLOWED_EMAIL_REGEX.test((email || '').trim());
+}
+
+function createUserId() { // create a unique user ID using timestamp and random string
+  return `u_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+}
+
+function normalizeUser(user) { // ensure user object has all required fields with defaults
+  const safeUser = user && typeof user === 'object' ? user : {};
+  return {
+    id: safeUser.id || createUserId(),
+    email: safeUser.email || '',
+    password: safeUser.password || '',
+    name: safeUser.name || '',
+    role: safeUser.role || '',
+    status: safeUser.status || ''
+  };
+}
+
+function getStoredUsers() { // retrieve users from localStorage
   try {
-    const raw = localStorage.getItem('devpulse_users');
+    const raw = localStorage.getItem(STORAGE_KEY);
+    
     if (!raw) return [];
-    return JSON.parse(raw) || [];
+    const parsed = JSON.parse(raw);
+
+    if (!Array.isArray(parsed)) return [];
+    const normalized = parsed.map(normalizeUser);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+    return normalized;
   } catch (e) {
     return [];
   }
 }
 
-function saveUser(user) {
+function saveUser(user) { // save a new user to localStorage; set defaults for missing fields
   const users = getStoredUsers();
-  users.push({ email: user.email, password: user.password });
-  localStorage.setItem('devpulse_users', JSON.stringify(users));
+  users.push(normalizeUser({
+    ...user,
+    role: user.role || 'Developer',
+    status: user.status || 'Pending'
+  }));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
 }
 
 function findUserByEmail(email) {
@@ -53,8 +86,12 @@ window.auth = { // expose auth functions globally
     const users = getStoredUsers();
     return users.length ? users[0] : null;
   },
+  getMockUsers: function() {
+    return _defaultMockUsers.map(u => ({ ...u }));
+  },
   saveUser,
   findUserByEmail,
+  isAllowedEmail,
   setLoggedIn,
   isLoggedIn,
   protectRoute,
@@ -65,14 +102,14 @@ window.auth = { // expose auth functions globally
 function seedUsers(usersArray = [], force = false) { // helper to seed mock users for testing; set force=true to overwrite existing users
   const existing = getStoredUsers();
   if (existing.length && !force) return false;
-  const toSave = usersArray.map(u => ({ email: u.email, password: u.password }));
-  localStorage.setItem('devpulse_users', JSON.stringify(toSave));
+  const toSave = usersArray.map(normalizeUser);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
   return true;
 }
 
 const _defaultMockUsers = [  // default mock users for testing
-  { email: 'ali@gmail.com', password: 'password123' },
-  { email: 'ahmed@gmail.com', password: 'password1234' }
+  { email: 'ali@gmail.com', password: 'password123', name: 'Ali Raza', role: 'Admin', status: 'Active' },
+  { email: 'ahmed@gmail.com', password: 'password1234', name: 'Ahmed Khan', role: 'Developer', status: 'Active' }
 ];
 
 (function autoSeedIfEmpty() { // auto-seed mock users if no users are found in storage (for testing purposes)

@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>DevPulse - Users</title>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neon: '#22c55e', cyber: '#06b6d4', darkness: '#020617'
+          },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-darkness text-slate-300 font-mono min-h-screen grid-bg overflow-x-hidden">
+  <script src="auth.js"></script>
+  <script>auth.protectRoute();</script>
+
+  <aside class="fixed inset-y-0 left-0 w-56 lg:w-72 bg-slate-950/90 backdrop-blur-2xl border-r border-white/10 hidden md:flex flex-col z-50 overflow-hidden">
+    <div class="p-6 flex items-center gap-3 shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon to-cyber flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+      </div>
+      
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-white">DevPulse</h1>
+        <p class="text-xs uppercase tracking-widest text-neon font-bold">API Manager</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 min-h-0 px-4 pt-1 pb-4 space-y-2 overflow-y-auto overflow-x-hidden custom-scrollbar">
+      <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg border border-dashed border-white/10 text-slate-400 hover:text-white hover:border-neon/50 hover:bg-white/5 transition-all group min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+        </svg>
+
+        <span class="text-base font-semibold">Exit to Home</span>
+      </a>
+
+      <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+        </svg>
+
+        <span class="text-base font-semibold">Dashboard</span>
+      </a>
+
+      <a href="users.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-neon/10 border border-neon/30 text-white transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-1a4 4 0 00-4-4h-1m-4 5H6a4 4 0 01-4-4v-1a4 4 0 014-4h6m0 0a4 4 0 100-8 4 4 0 000 8zm6 0a3 3 0 100-6 3 3 0 000 6z"/>
+        </svg>
+
+        <span class="text-base font-semibold">Users</span>
+      </a>
+
+      <a href="products.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+        </svg>
+
+        <span class="text-base font-semibold">Products</span>
+      </a>
+
+      <a href="analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19h16M6 16V8m4 8V5m4 11v-4m4 4V3"/>
+        </svg>
+
+        <span class="text-base font-semibold">Analytics</span>
+      </a>
+    </nav>
+
+    <div class="p-4 border-t border-white/5 shrink-0">
+      <div class="p-4 border border-white/5 rounded-xl bg-darkness/50">
+        <p class="text-sm text-slate-500 uppercase font-bold mb-2 tracking-tighter">System Engine</p>
+        
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-neon animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+          <span class="text-sm text-slate-300 font-bold uppercase">V-1.0 Online</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="md:ml-56 lg:ml-72 transition-all flex flex-col min-h-screen">
+    <header class="sticky top-0 z-40 bg-darkness/80 backdrop-blur-md border-b border-white/5">
+      <div class="px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4 min-w-0 md:hidden">
+          <div class="text-2xl font-extrabold text-white truncate">DevPulse</div>
+          <div class="text-sm text-slate-400">API Manager</div>
+        </div>
+
+        <div class="hidden md:block">
+          <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">System / Users</span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-3 lg:gap-6 text-slate-200 flex-wrap justify-end">
+          <div class="flex items-center gap-2 px-2.5 py-1.5 sm:px-3 bg-white/5 rounded-full border border-white/5 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+            <span class="text-[10px] sm:text-xs font-bold text-slate-400 whitespace-nowrap">API Status: Optimal</span>
+          </div>
+
+          <div class="flex flex-col items-end min-w-0 shrink-0">
+            <span id="userInfo" class="text-sm font-bold text-white break-words text-right max-w-[12rem] lg:max-w-[16rem]"></span>
+            <span class="text-xs text-neon uppercase tracking-tighter whitespace-nowrap">Developer Tier</span>
+          </div>
+
+          <button id="logoutBtn" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500 hover:text-white transition-all text-sm font-bold whitespace-nowrap">Log Out</button>
+        </nav>
+
+        <div class="md:hidden">
+          <button aria-label="menu" aria-expanded="false" id="menuBtn" class="text-slate-200">☰</button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden fixed left-4 right-4 z-[70] rounded-xl border border-white/10 bg-slate-950/95 backdrop-blur-xl px-4 py-4 shadow-2xl" style="top: calc(var(--header-height, 4rem) + 0.5rem);">
+        <nav class="flex flex-col gap-3">
+          <a href="index.html" class="inline-flex items-center px-3 py-2 rounded-md text-neon border border-neutral-700 bg-neutral-800/30 font-medium mobile-link">Exit to Home</a>
+
+          <a href="dashboard.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Dashboard</a>
+          
+          <a href="users.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md bg-neon text-neutral-900 font-semibold shadow-[0_0_16px_rgba(34,197,94,0.28)] mobile-link">Users</a>
+          
+          <a href="products.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Products</a>
+          
+          <a href="analytics.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Analytics</a>
+          
+          <div class="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/10 bg-white/5">
+            <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">API Status: Optimal</span>
+          </div>
+          
+          <div class="rounded-lg border border-white/10 bg-white/5 px-3 py-3">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">System Engine</p>
+            
+            <div class="flex items-center gap-2 mt-2">
+              <div class="w-2 h-2 rounded-full bg-neon animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+              <span class="text-sm text-slate-300 font-bold uppercase">V-1.0 Online</span>
+            </div>
+          </div>
+
+          <div class="mt-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Developer Tier</p>
+            <p id="mobileUserInfo" class="text-sm font-bold text-white mt-1 break-words"></p>
+          </div>
+          
+          <button id="mobileLogoutBtn" class="inline-flex items-center justify-center px-3 py-2 rounded-md text-red-300 border border-red-500/30 bg-red-500/10 hover:bg-red-500 hover:text-white font-medium">Log Out</button>
+        </nav>
+      </div>
+    </header>
+
+    <div class="md:hidden px-4 pt-4">
+      <div class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md">
+        <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">System / Users</span>
+        <span class="text-[10px] uppercase tracking-widest font-bold text-neon">Overview</span>
+      </div>
+    </div>
+
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Users</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-2">Manage user records created from this page</p>
+          </div>
+
+          <span class="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-neon">Directory Control</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+            <p class="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-slate-500">Total Users</p>
+            <p class="text-2xl sm:text-3xl font-black text-white mt-2" id="totalUsersMetric">0</p>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+            <p class="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-slate-500">Active Users</p>
+            <p class="text-2xl sm:text-3xl font-black text-white mt-2" id="activeUsersMetric">0</p>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+            <p class="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-slate-500">Admins</p>
+            <p class="text-2xl sm:text-3xl font-black text-white mt-2" id="adminUsersMetric">0</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8 space-y-6">
+        <div class="flex items-center justify-between gap-3">
+          <h3 class="text-lg sm:text-xl font-bold text-white">User Management</h3>
+          <span id="formModeBadge" class="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-cyber">Add Mode</span>
+        </div>
+
+        <form id="userForm" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
+          <input type="hidden" id="editingUserId">
+
+          <input id="nameInput" type="text" placeholder="Name" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber" required>
+
+          <input id="emailInput" type="email" placeholder="Email" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber" required>
+          
+          <select id="roleInput" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber" required>
+            <option value="">Select Role</option>
+            <option value="Admin">Admin</option>
+            <option value="Manager">Manager</option>
+            <option value="Developer">Developer</option>
+            <option value="Support">Support</option>
+          </select>
+          
+          <select id="statusInput" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber" required>
+            <option value="">Select Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+            <option value="Pending">Pending</option>
+          </select>
+
+          <div class="flex gap-2">
+            <button type="submit" id="saveUserBtn" class="flex-1 rounded-xl bg-neon text-black font-bold px-3 py-2 text-xs sm:text-sm hover:bg-neon/90 transition">Add User</button>
+
+            <button type="button" id="cancelEditBtn" class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs sm:text-sm font-bold text-slate-200 hover:bg-white/10 transition">Reset</button>
+          </div>
+        </form>
+
+        <div id="formMessage" class="hidden rounded-xl border px-3 py-2 text-xs sm:text-sm font-semibold"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <input id="userSearch" type="text" placeholder="Search by name or email" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyber">
+
+          <select id="roleFilter" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber">
+            <option value="all">All Roles</option>
+            <option value="Admin">Admin</option>
+            <option value="Manager">Manager</option>
+            <option value="Developer">Developer</option>
+            <option value="Support">Support</option>
+          </select>
+          
+          <select id="statusFilter" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber">
+            <option value="all">All Statuses</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl border border-white/10">
+          <table class="w-full min-w-[760px]">
+            <thead class="bg-white/5">
+              <tr class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 text-left">
+                <th class="px-4 py-3">Name</th>
+                <th class="px-4 py-3">Email</th>
+                <th class="px-4 py-3">Role</th>
+                <th class="px-4 py-3">Status</th>
+                <th class="px-4 py-3">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="usersTableBody" class="divide-y divide-white/5"></tbody>
+          </table>
+
+        </div>
+        <p id="emptyState" class="hidden text-xs sm:text-sm text-slate-500">No users match your current search/filter.</p>
+      </section>
+    </main>
+  </div>
+
+  <div id="confirmModal" class="hidden fixed inset-0 z-[120] bg-black/60 backdrop-blur-sm p-4 flex items-center justify-center">
+    <div class="w-full max-w-md rounded-2xl border border-white/15 bg-slate-950/95 shadow-2xl p-5">
+      <h4 class="text-base sm:text-lg font-bold text-white">Confirm Action</h4>
+
+      <p id="confirmModalMessage" class="mt-2 text-xs sm:text-sm text-slate-300"></p>
+      
+      <div class="mt-5 flex justify-end gap-2">
+        <button id="confirmCancelBtn" type="button" class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs sm:text-sm font-bold text-slate-200 hover:bg-white/10 transition">Cancel</button>
+        <button id="confirmOkBtn" type="button" class="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-2 text-xs sm:text-sm font-bold text-red-300 hover:bg-red-500/20 transition">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // User Authentication & Session Handling
+    const loggedEmail = localStorage.getItem('devpulse_loggedInUser') || 'guest@devpulse.com';
+    document.getElementById('userInfo').textContent = loggedEmail;
+    const mobileUserInfo = document.getElementById('mobileUserInfo');
+    if (mobileUserInfo) mobileUserInfo.textContent = loggedEmail;
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      auth.setLoggedIn(false);
+      location.href = 'login.html';
+    });
+    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+    if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', () => {
+      auth.setLoggedIn(false);
+      location.href = 'login.html';
+    });
+
+    const USERS_STORAGE_KEY = 'devpulse_users';
+    const FALLBACK_SEED = [{
+        email: 'ali@gmail.com',
+        password: 'password123',
+        name: 'Ali Raza',
+        role: 'Admin',
+        status: 'Active'
+      },
+      {
+        email: 'ahmed@gmail.com',
+        password: 'password1234',
+        name: 'Ahmed Khan',
+        role: 'Developer',
+        status: 'Active'
+      }
+    ];
+
+    function makeId() {
+      return `u_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+    }
+
+    function inferNameFromEmail(email = '') {
+      const localPart = email.split('@')[0] || '';
+      return localPart
+        .split(/[._-]/)
+        .filter(Boolean)
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' ') || 'Unnamed User';
+    }
+
+    function normalizeUser(user, fallbackIndex = 0) {
+      const safeUser = user && typeof user === 'object' ? user : {};
+      const email = (safeUser.email || '').trim().toLowerCase();
+      return {
+        id: safeUser.id || makeId(),
+        name: safeUser.name || inferNameFromEmail(email) || `User ${fallbackIndex + 1}`,
+        email,
+        role: safeUser.role || 'Developer',
+        status: safeUser.status || 'Active',
+        password: safeUser.password || ''
+      };
+    }
+
+    const userForm = document.getElementById('userForm');
+    const editingUserIdInput = document.getElementById('editingUserId');
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+    const roleInput = document.getElementById('roleInput');
+    const statusInput = document.getElementById('statusInput');
+    const saveUserBtn = document.getElementById('saveUserBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const formModeBadge = document.getElementById('formModeBadge');
+    const formMessage = document.getElementById('formMessage');
+    const userSearch = document.getElementById('userSearch');
+    const roleFilter = document.getElementById('roleFilter');
+    const statusFilter = document.getElementById('statusFilter');
+    const usersTableBody = document.getElementById('usersTableBody');
+    const emptyState = document.getElementById('emptyState');
+    const confirmModal = document.getElementById('confirmModal');
+    const confirmModalMessage = document.getElementById('confirmModalMessage');
+    const confirmCancelBtn = document.getElementById('confirmCancelBtn');
+    const confirmOkBtn = document.getElementById('confirmOkBtn');
+
+    const totalUsersMetric = document.getElementById('totalUsersMetric');
+    const activeUsersMetric = document.getElementById('activeUsersMetric');
+    const adminUsersMetric = document.getElementById('adminUsersMetric');
+
+    let pendingConfirmAction = null;
+
+    function loadUsers() {
+      let parsed = [];
+      try {
+        const raw = localStorage.getItem(USERS_STORAGE_KEY);
+        parsed = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(parsed)) parsed = [];
+      } catch {
+        parsed = [];
+      }
+
+      if (!parsed.length && window.auth && typeof auth.getStoredUsers === 'function') {
+        const authUsers = auth.getStoredUsers();
+        parsed = Array.isArray(authUsers) ? authUsers : [];
+      }
+
+      if (!parsed.length && window.auth && typeof auth.getMockUsers === 'function') {
+        const mockUsers = auth.getMockUsers();
+        parsed = Array.isArray(mockUsers) ? mockUsers : [];
+      }
+
+      if (!parsed.length) parsed = FALLBACK_SEED;
+
+      const normalized = parsed
+        .map((user, index) => normalizeUser(user, index))
+        .filter((user) => user.email);
+
+      localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(normalized));
+      return normalized;
+    }
+
+    function saveUsers(nextUsers) {
+      localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(nextUsers.map((user, index) => normalizeUser(user, index))));
+    }
+
+    let users = loadUsers();
+
+    function getStatusBadgeClasses(status) {
+      if (status === 'Active') return 'text-neon bg-neon/10 border-neon/30';
+      if (status === 'Inactive') return 'text-red-300 bg-red-500/10 border-red-500/30';
+      return 'text-cyber bg-cyber/10 border-cyber/30';
+    }
+
+    function updateMetrics() {
+      totalUsersMetric.textContent = users.length;
+      activeUsersMetric.textContent = users.filter((user) => user.status === 'Active').length;
+      adminUsersMetric.textContent = users.filter((user) => user.role === 'Admin').length;
+    }
+
+    function getFilteredUsers() {
+      const term = userSearch.value.trim().toLowerCase();
+      const role = roleFilter.value;
+      const status = statusFilter.value;
+
+      return users.filter((user) => {
+        const matchesSearch = !term || user.name.toLowerCase().includes(term) || user.email.toLowerCase().includes(term);
+        const matchesRole = role === 'all' || user.role === role;
+        const matchesStatus = status === 'all' || user.status === status;
+        return matchesSearch && matchesRole && matchesStatus;
+      });
+    }
+
+    function showMessage(message, type) {
+      formMessage.textContent = message;
+      formMessage.classList.remove('hidden', 'border-red-500/40', 'text-red-300', 'bg-red-500/10', 'border-neon/40', 'text-neon', 'bg-neon/10');
+      if (type === 'error') {
+        formMessage.classList.add('border-red-500/40', 'text-red-300', 'bg-red-500/10');
+      } else {
+        formMessage.classList.add('border-neon/40', 'text-neon', 'bg-neon/10');
+      }
+    }
+
+    function resetForm() {
+      editingUserIdInput.value = '';
+      userForm.reset();
+      saveUserBtn.textContent = 'Add User';
+      formModeBadge.textContent = 'Add Mode';
+    }
+
+    function openConfirmModal(message, onConfirm) {
+      confirmModalMessage.textContent = message;
+      pendingConfirmAction = onConfirm;
+      confirmModal.classList.remove('hidden');
+    }
+
+    function closeConfirmModal() {
+      confirmModal.classList.add('hidden');
+      pendingConfirmAction = null;
+    }
+
+    function isCurrentUserAdmin() {
+      const current = users.find((user) => user.email.toLowerCase() === loggedEmail.toLowerCase());
+      return !!current && String(current.role).toLowerCase() === 'admin';
+    }
+
+    function getAdminCount() {
+      return users.filter((user) => String(user.role).toLowerCase() === 'admin').length;
+    }
+
+    function renderUsers() {
+      const filteredUsers = getFilteredUsers();
+      const adminAccess = isCurrentUserAdmin();
+
+      [nameInput, emailInput, roleInput, statusInput, cancelEditBtn].forEach((el) => {
+        el.disabled = !adminAccess;
+      });
+      saveUserBtn.disabled = !adminAccess;
+      saveUserBtn.classList.toggle('opacity-50', !adminAccess);
+      saveUserBtn.classList.toggle('cursor-not-allowed', !adminAccess);
+      if (!adminAccess) {
+        saveUserBtn.textContent = 'Admin Only';
+        formModeBadge.textContent = 'View Mode';
+      } else if (!editingUserIdInput.value) {
+        saveUserBtn.textContent = 'Add User';
+        formModeBadge.textContent = 'Add Mode';
+      }
+
+      // Render user rows
+      usersTableBody.innerHTML = filteredUsers.map((user) => `
+        <tr>
+          <td class="px-3 sm:px-4 py-3 sm:py-4 text-xs sm:text-sm text-white font-semibold">${user.name}</td>
+          <td class="px-3 sm:px-4 py-3 sm:py-4 text-xs sm:text-sm text-slate-300">${user.email}</td>
+          <td class="px-3 sm:px-4 py-3 sm:py-4 text-xs sm:text-sm text-slate-300">${user.role}</td>
+          <td class="px-3 sm:px-4 py-3 sm:py-4">
+            <span class="inline-flex rounded-lg border px-2 py-1 text-[10px] sm:text-xs font-bold ${getStatusBadgeClasses(user.status)}">${user.status}</span>
+          </td>
+          <td class="px-3 sm:px-4 py-3 sm:py-4">
+            ${adminAccess ? `
+              <div class="flex gap-2">
+                <button data-action="edit" data-id="${user.id}" class="rounded-lg border border-cyber/40 bg-cyber/10 px-3 py-1.5 text-xs font-bold text-cyber hover:bg-cyber/20 transition">Edit</button>
+                <button data-action="delete" data-id="${user.id}" class="rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-xs font-bold text-red-300 hover:bg-red-500/20 transition">Delete</button>
+              </div>
+            ` : `
+              <span class="inline-flex rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] sm:text-xs font-bold text-slate-500">Admin Only</span>
+            `}
+          </td>
+        </tr>
+      `).join('');
+
+      emptyState.classList.toggle('hidden', filteredUsers.length !== 0);
+      updateMetrics();
+    }
+
+    userForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (!isCurrentUserAdmin()) {
+        showMessage('Only admin account can add users.', 'error');
+        return;
+      }
+
+      const payload = {
+        id: editingUserIdInput.value || makeId(),
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim().toLowerCase(),
+        role: roleInput.value,
+        status: statusInput.value
+      };
+
+      if (!payload.name || !payload.email || !payload.role || !payload.status) {
+        showMessage('Please complete all fields before saving.', 'error');
+        return;
+      }
+
+      if (!auth.isAllowedEmail(payload.email)) {
+        showMessage('Email must use gmail/yahoo/outlook/hotmail/icloud with .com (example: name@gmail.com).', 'error');
+        return;
+      }
+
+      const duplicateEmail = users.some((user) => user.email.toLowerCase() === payload.email && user.id !== payload.id);
+      if (duplicateEmail) {
+        showMessage('A user with this email already exists.', 'error');
+        return;
+      }
+
+      const editingIndex = users.findIndex((user) => user.id === payload.id);
+      if (editingIndex >= 0) {
+        const currentUser = users[editingIndex];
+        const isLastAdminRoleChange =
+          String(currentUser.role).toLowerCase() === 'admin' &&
+          getAdminCount() === 1 &&
+          String(payload.role).toLowerCase() !== 'admin';
+
+        if (isLastAdminRoleChange) {
+          showMessage('You cannot change the role of the only remaining admin.', 'error');
+          return;
+        }
+
+        users[editingIndex] = { ...users[editingIndex], ...payload };
+        showMessage('User updated successfully.', 'success');
+      } else {
+        users.push({ ...payload,
+          password: '123'
+        });
+        showMessage('User added successfully.', 'success');
+      }
+
+      saveUsers(users);
+      resetForm();
+      renderUsers();
+    });
+
+    cancelEditBtn.addEventListener('click', () => {
+      formMessage.classList.add('hidden');
+      resetForm();
+    });
+
+    usersTableBody.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      const action = target.dataset.action;
+      const id = target.dataset.id;
+      if (!action || !id) return;
+
+      const selected = users.find((user) => user.id === id);
+      if (!selected) return;
+
+      if (!isCurrentUserAdmin() && (action === 'edit' || action === 'delete')) {
+        showMessage('Only admin account can edit or delete users.', 'error');
+        return;
+      }
+
+      if (action === 'edit') {
+        editingUserIdInput.value = selected.id;
+        nameInput.value = selected.name;
+        emailInput.value = selected.email;
+        roleInput.value = selected.role;
+        statusInput.value = selected.status;
+        saveUserBtn.textContent = 'Update User';
+        formModeBadge.textContent = 'Edit Mode';
+        showMessage(`Editing ${selected.name}`, 'success');
+        return;
+      }
+
+      if (action === 'delete') {
+        const isLastAdminDelete =
+          String(selected.role).toLowerCase() === 'admin' &&
+          getAdminCount() === 1;
+
+        if (isLastAdminDelete) {
+          showMessage('You cannot delete the only remaining admin account.', 'error');
+          return;
+        }
+
+        openConfirmModal(`Delete user ${selected.name}?`, () => {
+          const isSelfDelete = selected.email.toLowerCase() === loggedEmail.toLowerCase();
+          users = users.filter((user) => user.id !== id);
+          saveUsers(users);
+
+          if (isSelfDelete) {
+            auth.setLoggedIn(false);
+            location.href = 'login.html';
+            return;
+          }
+
+          renderUsers();
+          showMessage('User deleted successfully.', 'success');
+        });
+      }
+    });
+
+    confirmCancelBtn.addEventListener('click', () => {
+      closeConfirmModal();
+    });
+
+    confirmOkBtn.addEventListener('click', () => {
+      const action = pendingConfirmAction;
+      closeConfirmModal();
+      if (typeof action === 'function') action();
+    });
+
+    confirmModal.addEventListener('click', (event) => {
+      if (event.target === confirmModal) {
+        closeConfirmModal();
+      }
+    });
+
+    userSearch.addEventListener('input', renderUsers);
+    roleFilter.addEventListener('change', renderUsers);
+    statusFilter.addEventListener('change', renderUsers);
+
+    renderUsers();
+  </script>
+</body>
+</html>
