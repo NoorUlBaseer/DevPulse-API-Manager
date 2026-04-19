@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <title>Analytics — DevPulse</title>
+  <link rel="icon" href="assets/favicon.svg?v=3" sizes="any" type="image/svg+xml">
+  <link rel="shortcut icon" href="assets/favicon.svg?v=3" type="image/svg+xml">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { neon: '#22c55e', cyber: '#06b6d4', darkness: '#020617'
+          },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-darkness text-slate-300 font-mono min-h-screen grid-bg overflow-x-hidden">
+  <script src="auth.js"></script>
+  <script>auth.protectRoute();</script>
+
+  <aside class="fixed inset-y-0 left-0 w-56 lg:w-72 bg-slate-950/90 backdrop-blur-2xl border-r border-white/10 hidden md:flex flex-col z-50 overflow-hidden">
+    <div class="p-6 flex items-center gap-3 shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon to-cyber flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+      </div>
+      
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-white">DevPulse</h1>
+        <p class="text-xs uppercase tracking-widest text-neon font-bold">API Manager</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 min-h-0 px-4 pt-1 pb-4 space-y-2 overflow-y-auto overflow-x-hidden custom-scrollbar">
+      <div class="mb-4">
+        <p class="text-xs font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest">General</p>
+
+      <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg border border-dashed border-white/10 text-slate-400 hover:text-white hover:border-neon/50 hover:bg-white/5 transition-all group min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+        </svg>
+        
+        <span class="text-base font-semibold">Exit to Home</span>
+      </a>
+      </div>
+
+      <p class="text-xs font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest">Main Menu</p>
+
+      <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+
+        <span class="text-base font-semibold">Dashboard</span>
+      </a>
+      
+      <a href="users.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-1a4 4 0 00-4-4h-1m-4 5H6a4 4 0 01-4-4v-1a4 4 0 014-4h6m0 0a4 4 0 100-8 4 4 0 000 8zm6 0a3 3 0 100-6 3 3 0 000 6z" />
+        </svg>
+        
+        <span class="text-base font-semibold">Users</span>
+      </a>
+
+      <a href="products.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+
+        <span class="text-base font-semibold">Products</span>
+      </a>
+
+      <a href="analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-neon/10 border border-neon/30 text-white transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19h16M6 16V8m4 8V5m4 11v-4m4 4V3" />
+        </svg>
+
+        <span class="text-base font-semibold">Analytics</span>
+      </a>
+    </nav>
+    
+    <div class="p-4 border-t border-white/5 shrink-0">
+      <div class="p-4 border border-white/5 rounded-xl bg-darkness/50">
+        <p class="text-sm text-slate-500 uppercase font-bold mb-2 tracking-tighter">System Engine</p>
+
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-neon animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+          <span class="text-sm text-slate-300 font-bold uppercase">V-1.0 Online</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="md:ml-56 lg:ml-72 transition-all flex flex-col min-h-screen">
+    <header class="sticky top-0 z-40 bg-darkness/80 backdrop-blur-md border-b border-white/5">
+      <div class="px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4 min-w-0 md:hidden">
+          <div class="text-2xl font-extrabold text-white truncate">DevPulse</div>
+          <div class="text-sm text-slate-400">API Manager</div>
+        </div>
+
+        <div class="hidden md:block">
+          <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">System / Analytics</span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-3 lg:gap-6 text-slate-200 flex-wrap justify-end">
+          <div class="flex items-center gap-2 px-2.5 py-1.5 sm:px-3 bg-white/5 rounded-full border border-white/5 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+            <span class="text-[10px] sm:text-xs font-bold text-slate-400 whitespace-nowrap">API Status: Optimal</span>
+          </div>
+
+          <div class="flex flex-col items-end min-w-0 shrink-0">
+            <span id="userInfo" class="text-sm font-bold text-white break-words text-right max-w-[12rem] lg:max-w-[16rem]"></span>
+            <span class="text-xs text-neon uppercase tracking-tighter whitespace-nowrap">Developer Tier</span>
+          </div>
+
+          <button id="logoutBtn" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500 hover:text-white transition-all text-sm font-bold whitespace-nowrap">Log Out</button>
+        </nav>
+        
+        <div class="md:hidden">
+          <button aria-label="menu" aria-expanded="false" id="menuBtn" class="text-slate-200">☰</button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden fixed left-4 right-4 z-[70] rounded-xl border border-white/10 bg-slate-950/95 backdrop-blur-xl px-4 py-4 shadow-2xl" style="top: calc(var(--header-height, 4rem) + 0.5rem);">
+        <nav class="flex flex-col gap-3">
+          <a href="index.html" class="inline-flex items-center px-3 py-2 rounded-md text-neon border border-neutral-700 bg-neutral-800/30 font-medium mobile-link">Exit to Home</a>
+          
+          <a href="dashboard.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Dashboard</a>
+          
+          <a href="users.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Users</a>
+          
+          <a href="products.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Products</a>
+          
+          <a href="analytics.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md bg-neon text-neutral-900 font-semibold shadow-[0_0_16px_rgba(34,197,94,0.28)] mobile-link">Analytics</a>
+          
+          <div class="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/10 bg-white/5">
+            <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">API Status: Optimal</span>
+          </div>
+
+          <div class="rounded-lg border border-white/10 bg-white/5 px-3 py-3">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">System Engine</p>
+            <div class="flex items-center gap-2 mt-2">
+
+              <div class="w-2 h-2 rounded-full bg-neon animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+              <span class="text-sm text-slate-300 font-bold uppercase">V-1.0 Online</span>
+            </div>
+          </div>
+
+          <div class="mt-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Developer Tier</p>
+            <p id="mobileUserInfo" class="text-sm font-bold text-white mt-1 break-words"></p>
+          </div>
+
+          <button id="mobileLogoutBtn" class="inline-flex items-center justify-center px-3 py-2 rounded-md text-red-300 border border-red-500/30 bg-red-500/10 hover:bg-red-500 hover:text-white font-medium">Log Out</button>
+        </nav>
+      </div>
+    </header>
+
+    <div class="md:hidden px-4 pt-4">
+      <div class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md">
+        <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">System / Analytics</span>
+        <span class="text-[10px] uppercase tracking-widest font-bold text-neon">Overview</span>
+      </div>
+    </div>
+
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-white">Analytics</h2>
+            <p class="text-sm text-slate-500 mt-2">Live insights from users and product records stored in localStorage</p>
+          </div>
+
+          <span class="text-xs uppercase tracking-widest font-bold text-neon">Insights</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="metric-card rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between gap-3">
+              <p class="metric-kicker">Users</p>
+              <span class="metric-tag">Live</span>
+            </div>
+
+            <p id="analyticsUsers" class="metric-value">0</p>
+            <p class="metric-caption">Registered accounts</p>
+          </div>
+
+          <div class="metric-card rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between gap-3">
+              <p class="metric-kicker">Active APIs</p>
+              <span class="metric-tag">Catalog</span>
+            </div>
+
+            <p id="analyticsProducts" class="metric-value">0</p>
+            <p class="metric-caption">Currently active products</p>
+          </div>
+
+          <div class="metric-card rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between gap-3">
+              <p class="metric-kicker">Generated APIs</p>
+              <span class="metric-tag">Usage</span>
+            </div>
+
+            <p id="analyticsGenerated" class="metric-value">0</p>
+            <p class="metric-caption">Provisioned API links</p>
+          </div>
+           
+          <div class="metric-card rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between gap-3">
+              <p class="metric-kicker">Revenue</p>
+              <span class="metric-tag">Billing</span>
+            </div>
+
+            <p id="analyticsRevenue" class="metric-value">PKR 0</p>
+            <p class="metric-caption">Lifetime billed total</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+          <div class="flex items-center justify-between gap-3 mb-5">
+            <h3 class="text-xl font-bold text-white">API Status Distribution</h3>
+            <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Bar Chart</span>
+          </div>
+
+          <div class="h-72">
+            <canvas id="productStatusChart"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+          <div class="flex items-center justify-between gap-3 mb-5">
+            <h3 class="text-xl font-bold text-white">User Role Split</h3>
+            <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Pie Chart</span>
+          </div>
+
+          <div class="h-72">
+            <canvas id="userRoleChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+        <div class="flex items-center justify-between gap-3 mb-5">
+          <h3 class="text-xl font-bold text-white">Generated APIs Trend (Last 6 Months)</h3>
+          <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Line Chart</span>
+        </div>
+        
+        <div class="h-72">
+          <canvas id="generatedTrendChart"></canvas>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  
+  <script>
+    const loggedEmail = localStorage.getItem('devpulse_loggedInUser') || 'guest@devpulse.com';
+    document.getElementById('userInfo').textContent = loggedEmail;
+    const mobileUserInfo = document.getElementById('mobileUserInfo');
+    if (mobileUserInfo) mobileUserInfo.textContent = loggedEmail;
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      auth.setLoggedIn(false);
+      location.href = 'login.html';
+    });
+    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+    if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', () => {
+      auth.setLoggedIn(false);
+      location.href = 'login.html';
+    });
+
+    const PRODUCTS_STORAGE_KEY = 'devpulse_products';
+    const GENERATED_API_STORAGE_KEY = 'devpulse_generated_apis';
+    const TOTAL_REVENUE_STORAGE_KEY = 'devpulse_total_revenue';
+
+    function readJsonArray(key) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function parseNonNegativeNumber(value) { // utility function to safely parse non-negative numbers, returning 0 for invalid inputs
+      const n = Number(value);
+      if (!Number.isFinite(n) || n < 0) return 0;
+      return n;
+    }
+
+    function formatCurrency(value) { // utility function to format a number as Pakistani Rupees with proper localization and thousands separators
+      return `PKR ${parseNonNegativeNumber(value).toLocaleString('en-PK')}`;
+    }
+
+    function getUsers() {
+      if (window.auth && typeof auth.getStoredUsers === 'function') {
+        const authUsers = auth.getStoredUsers();
+        if (Array.isArray(authUsers) && authUsers.length) return authUsers;
+      }
+      return readJsonArray('devpulse_users');
+    }
+
+    function getProducts() {
+      return readJsonArray(PRODUCTS_STORAGE_KEY);
+    }
+
+    function getGeneratedApis() {
+      return readJsonArray(GENERATED_API_STORAGE_KEY);
+    }
+
+    function getRevenue(products, generatedApis) {
+      const persisted = localStorage.getItem(TOTAL_REVENUE_STORAGE_KEY);
+      if (persisted !== null) return parseNonNegativeNumber(persisted);
+
+      const productPriceMap = new Map(products.map(item => [String(item.id || ''), parseNonNegativeNumber(item.price)]));
+      return generatedApis.reduce((sum, item) => {
+        const charged = parseNonNegativeNumber(item.chargedPrice);
+        if (charged > 0) return sum + charged;
+        return sum + parseNonNegativeNumber(productPriceMap.get(String(item.productId || '')));
+      }, 0);
+    }
+
+    function buildStatusSeries(products) { // utility function to count the number of products in each status category
+      const counts = { Active: 0, Draft: 0, Deprecated: 0 };
+      products.forEach(item => {
+        const status = String(item.status || 'Draft');
+        if (status in counts) counts[status] += 1;
+        else counts.Draft += 1;
+      });
+      if (!products.length) return [3, 2, 1];
+      return [counts.Active, counts.Draft, counts.Deprecated];
+    }
+
+    function buildRoleSeries(users) { // utility function to count the number of users in each role category
+      const roleCounts = new Map();
+      users.forEach(user => {
+        const role = String(user.role || 'Developer');
+        roleCounts.set(role, (roleCounts.get(role) || 0) + 1);
+      });
+
+      if (!roleCounts.size) {
+        return {
+          labels: ['Admin', 'Developer', 'Viewer'],
+          data: [1, 3, 1]
+        };
+      }
+
+      return {
+        labels: Array.from(roleCounts.keys()),
+        data: Array.from(roleCounts.values())
+      };
+    }
+
+    function buildGeneratedTrend(generatedApis) { // utility function to build the data series for generated APIs trend over the last 6 months
+      const labels = [];
+      const counts = [];
+      const now = new Date();
+      now.setDate(1);
+      now.setHours(0, 0, 0, 0);
+
+      for (let i = 5; i >= 0; i -= 1) {
+        const d = new Date(now);
+        d.setMonth(d.getMonth() - i);
+        labels.push(d.toLocaleDateString('en-US', { month: 'short' }));
+        counts.push(0);
+      }
+
+      const monthKeys = labels.map((_, idx) => {
+        const d = new Date(now);
+        d.setMonth(d.getMonth() - (5 - idx));
+        return `${d.getFullYear()}-${d.getMonth()}`;
+      });
+      const keyIndex = new Map(monthKeys.map((key, idx) => [key, idx]));
+
+      generatedApis.forEach(item => {
+        const d = new Date(Number(item.createdAt) || Date.now());
+        const key = `${d.getFullYear()}-${d.getMonth()}`;
+        if (keyIndex.has(key)) counts[keyIndex.get(key)] += 1;
+      });
+
+      if (generatedApis.length === 0) {
+        return { labels, data: [2, 3, 3, 4, 5, 6] };
+      }
+
+      return { labels, data: counts };
+    }
+
+    function createCharts() { // main function to read data, update metrics, and create charts using Chart.js
+      const users = getUsers();
+      const products = getProducts();
+      const generatedApis = getGeneratedApis();
+      const revenue = getRevenue(products, generatedApis);
+      const activeProducts = products.filter(item => String(item.status || '').toLowerCase() === 'active').length;
+
+      document.getElementById('analyticsUsers').textContent = users.length.toLocaleString('en-PK');
+      document.getElementById('analyticsProducts').textContent = activeProducts.toLocaleString('en-PK');
+      document.getElementById('analyticsGenerated').textContent = generatedApis.length.toLocaleString('en-PK');
+      document.getElementById('analyticsRevenue').textContent = formatCurrency(revenue);
+
+      const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              color: '#cbd5e1',
+              font: { family: 'JetBrains Mono' }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono' } },
+            grid: { color: 'rgba(148, 163, 184, 0.12)' }
+          },
+          y: {
+            ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono' }, precision: 0 },
+            grid: { color: 'rgba(148, 163, 184, 0.12)' }
+          }
+        }
+      };
+
+      const productStatusCtx = document.getElementById('productStatusChart');
+      if (productStatusCtx) {
+        const statusSeries = buildStatusSeries(products);
+        new Chart(productStatusCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Active', 'Draft', 'Deprecated'],
+            datasets: [{
+              label: 'Products',
+              data: statusSeries,
+              backgroundColor: ['rgba(34,197,94,0.7)', 'rgba(250,204,21,0.7)', 'rgba(248,113,113,0.7)'],
+              borderColor: ['#22c55e', '#facc15', '#f87171'],
+              borderWidth: 1,
+              borderRadius: 10
+            }]
+          },
+          options: commonOptions
+        });
+      }
+
+      const userRoleCtx = document.getElementById('userRoleChart');
+      if (userRoleCtx) {
+        const roleSeries = buildRoleSeries(users);
+        new Chart(userRoleCtx, {
+          type: 'doughnut',
+          data: {
+            labels: roleSeries.labels,
+            datasets: [{
+              data: roleSeries.data,
+              backgroundColor: ['rgba(34,197,94,0.72)', 'rgba(6,182,212,0.72)', 'rgba(168,85,247,0.72)', 'rgba(250,204,21,0.72)'],
+              borderColor: '#020617',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  color: '#cbd5e1',
+                  font: { family: 'JetBrains Mono' }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      const trendCtx = document.getElementById('generatedTrendChart');
+      if (trendCtx) {
+        const trend = buildGeneratedTrend(generatedApis);
+        new Chart(trendCtx, {
+          type: 'line',
+          data: {
+            labels: trend.labels,
+            datasets: [{
+              label: 'Generated APIs',
+              data: trend.data,
+              borderColor: '#06b6d4',
+              backgroundColor: 'rgba(6,182,212,0.16)',
+              tension: 0.35,
+              fill: true,
+              pointRadius: 4,
+              pointBackgroundColor: '#22c55e'
+            }]
+          },
+          options: commonOptions
+        });
+      }
+    }
+    createCharts();
+  </script>
+</body>
+</html>
