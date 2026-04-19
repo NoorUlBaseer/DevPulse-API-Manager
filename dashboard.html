@@ -219,7 +219,7 @@
             <span class="metric-badge is-cyber">Traffic</span>
           </div>
           <div id="totalOrders" class="metric-value mt-4">0</div>
-          <p class="metric-caption">Generated from current user base</p>
+          <p class="metric-caption">Total generated APIs across accounts</p>
           <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-bold text-cyber">
             <span>Stable</span>
             <span class="text-slate-600">Latency: 24ms</span>
@@ -235,7 +235,7 @@
             <span class="metric-badge is-amber">Billing</span>
           </div>
           <div id="revenue" class="metric-value mt-4 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight break-words">PKR 0</div>
-          <p class="metric-caption">Estimated from active user volume</p>
+          <p class="metric-caption">Lifetime billed from generated APIs</p>
           <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-bold text-neon">
             <span class="px-2 py-0.5 bg-neon/20 rounded">Billed</span>
             <span class="text-slate-600">Net 30</span>
@@ -358,12 +358,66 @@
 
   <script src="script.js"></script>
   <script>
+    const GENERATED_API_STORAGE_KEY = 'devpulse_generated_apis';
+    const TOTAL_REVENUE_STORAGE_KEY = 'devpulse_total_revenue';
+    const PRODUCTS_STORAGE_KEY = 'devpulse_products';
+
+    function parseNonNegativeNumber(value) { // Utility function to safely parse non-negative numbers, returns 0 for invalid inputs
+      const num = Number(value);
+      if (!Number.isFinite(num) || num < 0) return 0;
+      return num;
+    }
+
+    function formatCurrency(value) { // Format a number as PKR currency with proper localization and commas
+      return `PKR ${parseNonNegativeNumber(value).toLocaleString('en-PK')}`;
+    }
+
+    function loadGeneratedApis() {
+      try {
+        const raw = localStorage.getItem(GENERATED_API_STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(item => item && typeof item === 'object');
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function loadProductPriceMap() { // Load products from localStorage and create a Map of productId to price for quick lookup
+      try {
+        const raw = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+        if (!raw) return new Map();
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return new Map();
+        return new Map(parsed.map(item => [String(item.id || ''), parseNonNegativeNumber(item.price)]));
+      } catch (error) {
+        return new Map();
+      }
+    }
+
+    function loadRevenueTotal() { // Load total revenue from localStorage, if not present calculate it from generated APIs and product prices
+      const raw = localStorage.getItem(TOTAL_REVENUE_STORAGE_KEY);
+      if (raw !== null) return parseNonNegativeNumber(raw);
+
+      const generated = loadGeneratedApis();
+      const priceByProductId = loadProductPriceMap();
+      const seededRevenue = generated.reduce((sum, item) => {
+        const chargedPrice = parseNonNegativeNumber(item.chargedPrice);
+        if (chargedPrice > 0) return sum + chargedPrice;
+        return sum + parseNonNegativeNumber(priceByProductId.get(String(item.productId || '')));
+      }, 0);
+
+      localStorage.setItem(TOTAL_REVENUE_STORAGE_KEY, String(seededRevenue));
+      return seededRevenue;
+    }
+
     // Load user data and populate dashboard metrics
     const users = auth.getStoredUsers();
+    const generatedApis = loadGeneratedApis();
     document.getElementById('totalUsers').textContent = users.length;
-    document.getElementById('totalOrders').textContent = (users.length * 65).toLocaleString();
-    const revenuePkr = users.length * 12450;
-    document.getElementById('revenue').textContent = `PKR ${revenuePkr.toLocaleString('en-PK')}`;
+    document.getElementById('totalOrders').textContent = generatedApis.length.toLocaleString('en-PK');
+    document.getElementById('revenue').textContent = formatCurrency(loadRevenueTotal());
 
     // Display logged-in user's email
     const loggedEmail = localStorage.getItem('devpulse_loggedInUser') || 'guest@devpulse.com';

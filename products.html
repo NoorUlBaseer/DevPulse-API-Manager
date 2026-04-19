@@ -1,0 +1,1504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Products — DevPulse</title>
+  <link rel="icon" href="assets/favicon.svg?v=3" sizes="any" type="image/svg+xml">
+  <link rel="shortcut icon" href="assets/favicon.svg?v=3" type="image/svg+xml">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { neon: '#22c55e', cyber: '#06b6d4', darkness: '#020617' },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-darkness text-slate-300 font-mono min-h-screen grid-bg overflow-x-hidden">
+  <script src="auth.js"></script>
+  <script>auth.protectRoute();</script>
+
+  <aside class="fixed inset-y-0 left-0 w-56 lg:w-72 bg-slate-950/90 backdrop-blur-2xl border-r border-white/10 hidden md:flex flex-col z-50 overflow-hidden">
+    <div class="p-6 flex items-center gap-3 shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon to-cyber flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+      </div>
+
+      <div>
+        <h1 class="text-xl font-bold tracking-tight text-white">DevPulse</h1>
+        <p class="text-xs uppercase tracking-widest text-neon font-bold">API Manager</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 min-h-0 px-4 pt-1 pb-4 space-y-2 overflow-y-auto overflow-x-hidden custom-scrollbar">
+      <div class="mb-4">
+        <p class="text-xs font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest">General</p>
+
+        <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg border border-dashed border-white/10 text-slate-400 hover:text-white hover:border-neon/50 hover:bg-white/5 transition-all group min-h-[44px]">
+          <svg class="w-5 h-5 shrink-0 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+          </svg>
+          
+          <span class="text-base font-semibold">Exit to Home</span>
+        </a>
+      </div>
+
+      <p class="text-xs font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest">Main Menu</p>
+
+      <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+
+        <span class="text-base font-semibold">Dashboard</span>
+      </a>
+
+      <a href="users.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-1a4 4 0 00-4-4h-1m-4 5H6a4 4 0 01-4-4v-1a4 4 0 014-4h6m0 0a4 4 0 100-8 4 4 0 000 8zm6 0a3 3 0 100-6 3 3 0 000 6z" />
+        </svg>
+
+        <span class="text-base font-semibold">Users</span>
+      </a>
+      
+      <a href="products.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-neon/10 border border-neon/30 text-white transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+
+        <span class="text-base font-semibold">Products</span>
+      </a>
+
+      <a href="analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:border-cyber/40 hover:bg-white/5 transition-all min-h-[44px]">
+        <svg class="w-5 h-5 shrink-0 text-cyber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19h16M6 16V8m4 8V5m4 11v-4m4 4V3" />
+        </svg>
+
+        <span class="text-base font-semibold">Analytics</span>
+      </a>
+    </nav>
+
+    <div class="p-4 border-t border-white/5 shrink-0">
+      <div class="p-4 border border-white/5 rounded-xl bg-darkness/50">
+        <p class="text-sm text-slate-500 uppercase font-bold mb-2 tracking-tighter">System Engine</p>
+        
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-neon animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+          <span class="text-sm text-slate-300 font-bold uppercase">V-1.0 Online</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="md:ml-56 lg:ml-72 transition-all flex flex-col min-h-screen">
+    <header class="sticky top-0 z-40 bg-darkness/80 backdrop-blur-md border-b border-white/5">
+      <div class="px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4 min-w-0 md:hidden">
+          <div class="text-2xl font-extrabold text-white truncate">DevPulse</div>
+          <div class="text-sm text-slate-400">API Manager</div>
+        </div>
+
+        <div class="hidden md:block">
+          <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">System / Products</span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-3 lg:gap-6 text-slate-200 flex-wrap justify-end">
+          <div class="flex items-center gap-2 px-2.5 py-1.5 sm:px-3 bg-white/5 rounded-full border border-white/5 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+            <span class="text-[10px] sm:text-xs font-bold text-slate-400 whitespace-nowrap">API Status: Optimal</span>
+          </div>
+
+          <div class="flex flex-col items-end min-w-0 shrink-0">
+            <span id="userInfo" class="text-sm font-bold text-white break-words text-right max-w-[12rem] lg:max-w-[16rem]"></span>
+            <span class="text-xs text-neon uppercase tracking-tighter whitespace-nowrap">Developer Tier</span>
+          </div>
+
+          <button id="logoutBtn" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500 hover:text-white transition-all text-sm font-bold whitespace-nowrap">Log Out</button>
+        </nav>
+
+        <div class="md:hidden">
+          <button aria-label="menu" aria-expanded="false" id="menuBtn" class="text-slate-200">☰</button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden fixed left-4 right-4 z-[70] rounded-xl border border-white/10 bg-slate-950/95 backdrop-blur-xl px-4 py-4 shadow-2xl" style="top: calc(var(--header-height, 4rem) + 0.5rem);">
+        <nav class="flex flex-col gap-3">
+          <a href="index.html" class="inline-flex items-center px-3 py-2 rounded-md text-neon border border-neutral-700 bg-neutral-800/30 font-medium mobile-link">Exit to Home</a>
+
+          <a href="dashboard.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Dashboard</a>
+          
+          <a href="users.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Users</a>
+          
+          <a href="products.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md bg-neon text-neutral-900 font-semibold shadow-[0_0_16px_rgba(34,197,94,0.28)] mobile-link">Products</a>
+          
+          <a href="analytics.html" class="inline-flex items-center justify-center px-3 py-2 rounded-md border border-white/10 bg-white/5 text-slate-200 font-medium mobile-link">Analytics</a>
+          
+          <div class="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/10 bg-white/5">
+            <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">API Status: Optimal</span>
+          </div>
+          
+          <div class="rounded-lg border border-white/10 bg-white/5 px-3 py-3">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">System Engine</p>
+            
+            <div class="flex items-center gap-2 mt-2">
+              <div class="w-2 h-2 rounded-full bg-neon animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+              <span class="text-sm text-slate-300 font-bold uppercase">V-1.0 Online</span>
+            </div>
+          </div>
+          
+          <div class="mt-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Developer Tier</p>
+            <p id="mobileUserInfo" class="text-sm font-bold text-white mt-1 break-words"></p>
+          </div>
+          
+          <button id="mobileLogoutBtn" class="inline-flex items-center justify-center px-3 py-2 rounded-md text-red-300 border border-red-500/30 bg-red-500/10 hover:bg-red-500 hover:text-white font-medium">Log Out</button>
+        </nav>
+      </div>
+    </header>
+
+    <div class="md:hidden px-4 pt-4">
+      <div class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md">
+        <span class="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">System / Products</span>
+        <span class="text-[10px] uppercase tracking-widest font-bold text-neon">Overview</span>
+      </div>
+    </div>
+
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-white">Products</h2>
+            <p class="text-sm text-slate-500 mt-2">Manage API products with live pricing, access status, and account-specific API IDs</p>
+          </div>
+
+          <span class="text-xs uppercase tracking-widest font-bold text-neon">API Catalog Feed</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div class="metric-card rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between gap-3">
+              <p class="metric-kicker">Total APIs</p>
+              <span class="metric-badge is-cyber">Catalog</span>
+            </div>
+
+            <p id="totalProductsMetric" class="metric-value">0</p>
+            <p class="metric-caption">All seeded and custom API products</p>
+          </div>
+
+          <div class="metric-card rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between gap-3">
+              <p class="metric-kicker">Active APIs</p>
+              <span class="metric-badge is-neon">Online</span>
+            </div>
+
+            <p id="activeProductsMetric" class="metric-value">0</p>
+            <p class="metric-caption">Currently available for generation</p>
+          </div>
+          
+          <div class="metric-card rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between gap-3">
+              <p class="metric-kicker">Total Revenue</p>
+              <span class="metric-badge is-amber">Revenue</span>
+            </div>
+
+            <p id="revenueMetric" class="metric-value">PKR 0</p>
+            <p class="metric-caption">Lifetime billed from generated APIs</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+          <h3 id="formHeading" class="text-xl font-bold text-white">Add API Product</h3>
+          <span class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-bold">Add / Update Logic</span>
+        </div>
+
+        <form id="productForm" class="space-y-4">
+          <input type="hidden" id="productId">
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
+            <label class="space-y-2 xl:col-span-2">
+              <span class="text-xs uppercase tracking-wider font-bold text-slate-500">API Name</span>
+
+              <input id="nameInput" type="text" required placeholder="Payments Gateway API" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyber/50">
+            </label>
+            
+            <label class="space-y-2">
+              <span class="text-xs uppercase tracking-wider font-bold text-slate-500">Price (PKR)</span>
+              
+              <div class="number-step-shell">
+                <input id="priceInput" type="number" min="0" step="100" required placeholder="12000" class="number-step-input w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyber/50">
+                <div class="number-step-controls">
+                  <button type="button" class="number-step-btn" data-step-target="priceInput" data-step-action="down" aria-label="Decrease price">-</button>
+                  <button type="button" class="number-step-btn" data-step-target="priceInput" data-step-action="up" aria-label="Increase price">+</button>
+                </div>
+              </div>
+            </label>
+
+            <label class="space-y-2">
+              <span class="text-xs uppercase tracking-wider font-bold text-slate-500">Status</span>
+              
+              <select id="statusInput" class="cyber-select w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-cyber/50">
+                <option value="Active">Active</option>
+                <option value="Draft">Draft</option>
+                <option value="Deprecated">Deprecated</option>
+              </select>
+            </label>
+
+            <label class="space-y-2">
+              <span class="text-xs uppercase tracking-wider font-bold text-slate-500">Limit (Users)</span>
+              <div class="number-step-shell">
+
+                <input id="quantityInput" type="number" min="0" step="1" required placeholder="20" class="number-step-input w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyber/50">
+                <div class="number-step-controls">
+                  <button type="button" class="number-step-btn" data-step-target="quantityInput" data-step-action="down" aria-label="Decrease limit">-</button>
+
+                  <button type="button" class="number-step-btn" data-step-target="quantityInput" data-step-action="up" aria-label="Increase limit">+</button>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <label class="space-y-2 block">
+            <span class="text-xs uppercase tracking-wider font-bold text-slate-500">Upload Picture</span>
+            <input id="pictureInput" type="file" accept="image/*" class="w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2.5 text-sm text-white file:mr-3 file:rounded-md file:border-0 file:bg-cyber file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-slate-950 hover:file:opacity-90 focus:outline-none focus:border-cyber/50">
+            
+            <p class="text-[11px] text-slate-500">For edit: leave empty to keep existing image.</p>
+          </label>
+
+          <div class="flex flex-wrap gap-3">
+            <button id="saveProductBtn" type="submit" class="px-4 py-2.5 rounded-lg bg-neon text-slate-900 font-bold hover:opacity-90 transition-opacity">Save API Product</button>
+            
+            <button id="cancelEditBtn" type="button" class="px-4 py-2.5 rounded-lg border border-white/15 bg-white/5 text-slate-300 font-bold hover:bg-white/10 transition-colors hidden">Cancel Edit</button>
+          </div>
+
+          <p id="productAdminNotice" class="hidden text-xs text-amber-300 border border-amber-400/30 bg-amber-500/10 rounded-lg px-3 py-2">Only Admin can create, update, or delete API products.</p>
+          
+          <p id="productFormMessage" class="text-sm font-semibold min-h-[1.5rem]"></p>
+        </form>
+      </section>
+
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8 space-y-5">
+        <div class="flex flex-col xl:flex-row gap-4 xl:items-start xl:justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-white">API Products Table</h3>
+            <p class="text-sm text-slate-500 mt-1">Filter and sort your API products with real-time table updates</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 w-full xl:w-auto">
+            <label class="space-y-1 sm:col-span-2 xl:col-span-1">
+              <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Search</span>
+              
+              <input id="searchInput" type="text" placeholder="Search by name or API ID" class="w-full rounded-lg border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyber/50">
+            </label>
+
+            <label class="space-y-1">
+              <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Status</span>
+              
+              <select id="statusFilter" class="cyber-select w-full rounded-lg border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber/50">
+                <option value="All">All</option>
+                <option value="Active">Active</option>
+                <option value="Draft">Draft</option>
+                <option value="Deprecated">Deprecated</option>
+              </select>
+            </label>
+
+            <label class="space-y-1">
+              <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Sort</span>
+              
+              <select id="sortSelect" class="cyber-select w-full rounded-lg border border-white/10 bg-slate-900/50 px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-cyber/50">
+                <option value="newest">Newest</option>
+                <option value="nameAsc">Name A-Z</option>
+                <option value="nameDesc">Name Z-A</option>
+                <option value="priceAsc">Price Low-High</option>
+                <option value="priceDesc">Price High-Low</option>
+                <option value="qtyAsc">Quantity Low-High</option>
+                <option value="qtyDesc">Quantity High-Low</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl border border-white/10">
+          <table class="min-w-[880px] w-full text-xs sm:text-sm">
+            <thead class="bg-slate-900/80 text-slate-400 uppercase tracking-wider text-[10px] sm:text-xs">
+              <tr>
+                <th class="text-left px-3 sm:px-4 py-3">Name</th>
+                <th class="text-left px-3 sm:px-4 py-3">Price</th>
+                <th class="text-left px-3 sm:px-4 py-3">Status</th>
+                <th class="text-left px-3 sm:px-4 py-3">Picture</th>
+                <th class="text-left px-3 sm:px-4 py-3">Limit</th>
+                <th class="text-left px-3 sm:px-4 py-3">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="productsTableBody" class="divide-y divide-white/5 bg-slate-950/30"></tbody>
+          </table>
+        </div>
+
+        <p id="emptyState" class="hidden text-sm text-slate-500 border border-dashed border-white/10 rounded-xl p-4">No API product matches your current filters.</p>
+      </section>
+
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h3 class="text-xl font-bold text-white">Generate Personal API</h3>
+            <p class="text-sm text-slate-500 mt-1">Select an API product to generate your unique endpoint. Each generation consumes 1 limit.</p>
+          </div>
+
+          <span class="text-[11px] uppercase tracking-[0.2em] text-cyber font-bold">Access Provisioning</span>
+        </div>
+
+        <form id="generateForm" class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+          <label class="space-y-2 md:col-span-2">
+            <span class="text-xs uppercase tracking-wider font-bold text-slate-500">Choose Backend API</span>
+            
+            <select id="generateProductSelect" class="cyber-select w-full rounded-xl border border-white/10 bg-slate-900/50 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-cyber/50"></select>
+          </label>
+
+          <button type="submit" id="generateBtn" class="generate-btn px-4 py-2.5 rounded-lg bg-cyber text-slate-950 font-bold hover:opacity-90 transition-opacity inline-flex items-center justify-center gap-2">
+            <span class="generate-btn-label">Generate API Link</span>
+            <span class="generate-spinner hidden" aria-hidden="true"></span>
+          </button>
+        </form>
+        
+        <p id="generateMessage" class="text-sm font-semibold min-h-[1.5rem]"></p>
+      </section>
+
+      <section class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h3 class="text-xl font-bold text-white">Generated APIs</h3>
+            <p id="generatedSubText" class="text-sm text-slate-500 mt-1">Your generated API endpoints</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl border border-white/10">
+          <table class="min-w-[880px] w-full text-xs sm:text-sm">
+            <thead class="bg-slate-900/80 text-slate-400 uppercase tracking-wider text-[10px] sm:text-xs">
+              <tr>
+                <th class="text-left px-3 sm:px-4 py-3">Backend API</th>
+                <th class="text-left px-3 sm:px-4 py-3">Generated URL</th>
+                <th class="text-left px-3 sm:px-4 py-3">Owner</th>
+                <th class="text-left px-3 sm:px-4 py-3">Generated On</th>
+                <th class="text-left px-3 sm:px-4 py-3">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="generatedTableBody" class="divide-y divide-white/5 bg-slate-950/30"></tbody>
+          </table>
+        </div>
+
+        <p id="generatedTableMessage" class="text-sm font-semibold min-h-[1.5rem]"></p>
+        <p id="generatedEmptyState" class="hidden text-sm text-slate-500 border border-dashed border-white/10 rounded-xl p-4">No APIs generated yet.</p>
+      </section>
+
+      <div id="deleteModal" class="hidden fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm px-4">
+        <div class="min-h-full flex items-center justify-center">
+          <div class="w-full max-w-md rounded-2xl border border-white/10 bg-slate-950 p-5 sm:p-6 shadow-2xl">
+
+            <h4 class="text-lg font-bold text-white">Delete API Product?</h4>
+            <p id="deleteModalText" class="text-sm text-slate-400 mt-2">This action will remove the selected API product.</p>
+
+            <div class="mt-5 flex flex-wrap justify-end gap-3">
+              <button id="cancelDeleteBtn" type="button" class="px-4 py-2 rounded-lg border border-white/15 bg-white/5 text-slate-300 font-bold hover:bg-white/10 transition-colors">Cancel</button>
+
+              <button id="confirmDeleteBtn" type="button" class="px-4 py-2 rounded-lg bg-red-500/20 border border-red-400/30 text-red-300 font-bold hover:bg-red-500 hover:text-white transition-colors">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  
+  <script>
+    const loggedEmail = localStorage.getItem('devpulse_loggedInUser') || 'guest@devpulse.com';
+    document.getElementById('userInfo').textContent = loggedEmail;
+    const mobileUserInfo = document.getElementById('mobileUserInfo');
+    if (mobileUserInfo) mobileUserInfo.textContent = loggedEmail;
+
+    const PRODUCTS_STORAGE_KEY = 'devpulse_products';
+    const PRODUCTS_SEED_VERSION_KEY = 'devpulse_products_seed_version';
+    const PRODUCTS_SEED_VERSION = '2026-04-products-v2';
+    const GENERATED_API_STORAGE_KEY = 'devpulse_generated_apis';
+    const TOTAL_REVENUE_STORAGE_KEY = 'devpulse_total_revenue';
+    const productForm = document.getElementById('productForm');
+    const productFormMessage = document.getElementById('productFormMessage');
+    const productAdminNotice = document.getElementById('productAdminNotice');
+    const productIdInput = document.getElementById('productId');
+    const nameInput = document.getElementById('nameInput');
+    const priceInput = document.getElementById('priceInput');
+    const statusInput = document.getElementById('statusInput');
+    const pictureInput = document.getElementById('pictureInput');
+    const quantityInput = document.getElementById('quantityInput');
+    const formHeading = document.getElementById('formHeading');
+    const saveProductBtn = document.getElementById('saveProductBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+    const sortSelect = document.getElementById('sortSelect');
+    const productsTableBody = document.getElementById('productsTableBody');
+    const emptyState = document.getElementById('emptyState');
+    const totalProductsMetric = document.getElementById('totalProductsMetric');
+    const activeProductsMetric = document.getElementById('activeProductsMetric');
+    const revenueMetric = document.getElementById('revenueMetric');
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteModalText = document.getElementById('deleteModalText');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const generateForm = document.getElementById('generateForm');
+    const generateProductSelect = document.getElementById('generateProductSelect');
+    const generateBtn = document.getElementById('generateBtn');
+    const generateBtnLabel = generateBtn.querySelector('.generate-btn-label');
+    const generateBtnSpinner = generateBtn.querySelector('.generate-spinner');
+    const generateMessage = document.getElementById('generateMessage');
+    const generatedTableBody = document.getElementById('generatedTableBody');
+    const generatedTableMessage = document.getElementById('generatedTableMessage');
+    const generatedEmptyState = document.getElementById('generatedEmptyState');
+    const generatedSubText = document.getElementById('generatedSubText');
+
+    let pendingDeleteTarget = null;
+    let formMessageTimer = null;
+    let generateMessageTimer = null;
+    let generatedTableMessageTimer = null;
+
+    function scheduleMessageClear(element, timerName, delayMs = 2600) { // message disappear after 2.6 seconds
+      if (!element) return;
+
+      if (timerName === 'form' && formMessageTimer) {
+        clearTimeout(formMessageTimer);
+        formMessageTimer = null;
+      }
+      if (timerName === 'generate' && generateMessageTimer) {
+        clearTimeout(generateMessageTimer);
+        generateMessageTimer = null;
+      }
+      if (timerName === 'generatedTable' && generatedTableMessageTimer) {
+        clearTimeout(generatedTableMessageTimer);
+        generatedTableMessageTimer = null;
+      }
+
+      const timeoutId = setTimeout(() => {
+        element.textContent = '';
+        element.classList.remove('text-red-400', 'text-green-400');
+
+        if (timerName === 'form') formMessageTimer = null;
+        if (timerName === 'generate') generateMessageTimer = null;
+        if (timerName === 'generatedTable') generatedTableMessageTimer = null;
+      }, delayMs);
+
+      if (timerName === 'form') formMessageTimer = timeoutId;
+      if (timerName === 'generate') generateMessageTimer = timeoutId;
+      if (timerName === 'generatedTable') generatedTableMessageTimer = timeoutId;
+    }
+
+    function setupNumberSteppers() { // for price and quantity inputs
+      const stepButtons = document.querySelectorAll('.number-step-btn[data-step-target]');
+      stepButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const targetId = button.getAttribute('data-step-target');
+          const action = button.getAttribute('data-step-action');
+          const input = targetId ? document.getElementById(targetId) : null;
+          if (!input || input.disabled) return;
+
+          if (action === 'up') input.stepUp();
+          if (action === 'down') input.stepDown();
+
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      });
+    }
+
+    function enhanceCyberSelect(select) { // styling for dropdown selects
+      if (!select || select.dataset.cyberEnhanced === 'true') return;
+
+      const shell = document.createElement('div');
+      shell.className = 'cyber-select-shell';
+      const trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'cyber-select-trigger';
+      trigger.innerHTML = '<span class="cyber-select-trigger-label"></span><span class="cyber-select-trigger-meta">▾</span>';
+      const menu = document.createElement('div');
+      menu.className = 'cyber-select-menu';
+
+      select.classList.add('cyber-select-native');
+      select.dataset.cyberEnhanced = 'true';
+      select.parentNode.insertBefore(shell, select);
+      shell.appendChild(select);
+      shell.appendChild(trigger);
+      shell.appendChild(menu);
+
+      const labelNode = trigger.querySelector('.cyber-select-trigger-label');
+
+      const updateTrigger = () => {
+        const selectedOption = select.options[select.selectedIndex];
+        labelNode.textContent = selectedOption ? selectedOption.textContent : 'Select an option';
+        menu.querySelectorAll('.cyber-select-option').forEach((optionButton) => {
+          optionButton.classList.toggle('is-selected', optionButton.dataset.value === select.value);
+        });
+      };
+
+      const buildMenu = () => { // build the dropdown menu based on select options
+        menu.innerHTML = '';
+        Array.from(select.options).forEach((option) => {
+          const optionButton = document.createElement('button');
+          optionButton.type = 'button';
+          optionButton.className = 'cyber-select-option';
+          optionButton.textContent = option.textContent;
+          optionButton.dataset.value = option.value;
+          if (option.value === select.value) optionButton.classList.add('is-selected');
+          optionButton.addEventListener('click', () => {
+            select.value = option.value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            shell.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            updateTrigger();
+          });
+          menu.appendChild(optionButton);
+        });
+        updateTrigger();
+      };
+
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.addEventListener('click', () => {
+        const isOpen = shell.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', String(isOpen));
+        if (isOpen) buildMenu();
+      });
+
+      select.addEventListener('change', updateTrigger);
+      select.addEventListener('focus', () => shell.classList.add('is-open'));
+      select.addEventListener('blur', () => shell.classList.remove('is-open'));
+      document.addEventListener('click', (event) => {
+        if (!shell.contains(event.target)) {
+          shell.classList.remove('is-open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      updateTrigger();
+    }
+
+    function refreshCyberSelect(select) { // function for updating the options of a cyber select and refreshing its state
+      if (!select) return;
+      const shell = select.closest('.cyber-select-shell');
+      if (!shell) return;
+      const triggerLabel = shell.querySelector('.cyber-select-trigger-label');
+      const selectedOption = select.options[select.selectedIndex];
+      if (triggerLabel) triggerLabel.textContent = selectedOption ? selectedOption.textContent : 'Select an option';
+      const optionButtons = shell.querySelectorAll('.cyber-select-option');
+      optionButtons.forEach((optionButton) => {
+        optionButton.classList.toggle('is-selected', optionButton.dataset.value === select.value);
+      });
+    }
+
+    [statusInput, statusFilter, sortSelect, generateProductSelect].forEach(enhanceCyberSelect);
+
+    function getCurrentUser() {
+      const users = auth.getStoredUsers();
+      return users.find(user => user.email === loggedEmail) || null;
+    }
+
+    function isCurrentUserAdmin() {
+      const currentUser = getCurrentUser();
+      return Boolean(currentUser && String(currentUser.role || '').toLowerCase() === 'admin');
+    }
+
+    function showFormMessage(message, type) { // displaying messages related to product form actions with appropriate styling and auto-clear
+      productFormMessage.textContent = message;
+      productFormMessage.classList.remove('text-red-400', 'text-green-400');
+      productFormMessage.classList.add(type === 'success' ? 'text-green-400' : 'text-red-400');
+      scheduleMessageClear(productFormMessage, 'form');
+    }
+
+    function showGenerateMessage(message, type) { // displaying messages related to API generation with appropriate styling and auto-clear
+      generateMessage.textContent = message;
+      generateMessage.classList.remove('text-red-400', 'text-green-400');
+      generateMessage.classList.add(type === 'success' ? 'text-green-400' : 'text-red-400');
+      scheduleMessageClear(generateMessage, 'generate');
+    }
+
+    function showGeneratedTableMessage(message, type) { // displaying messages related to generated APIs table with appropriate styling and auto-clear
+      if (!generatedTableMessage) return;
+      generatedTableMessage.textContent = message;
+      generatedTableMessage.classList.remove('text-red-400', 'text-green-400');
+      generatedTableMessage.classList.add(type === 'success' ? 'text-green-400' : 'text-red-400');
+      scheduleMessageClear(generatedTableMessage, 'generatedTable');
+    }
+
+    function setGenerateButtonLoading(isLoading) { // loading state of the generate button with visual feedback and disabling interactions
+      generateBtn.disabled = isLoading;
+      generateBtn.classList.toggle('is-loading', isLoading);
+      generateBtn.classList.toggle('opacity-50', isLoading);
+      generateBtn.classList.toggle('cursor-not-allowed', isLoading);
+      if (generateBtnLabel) generateBtnLabel.textContent = isLoading ? 'Generating...' : 'Generate API Link';
+      if (generateBtnSpinner) generateBtnSpinner.classList.toggle('hidden', !isLoading);
+    }
+
+    function wait(ms) { // wait for a specified number of milliseconds
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function getCurrentUserId() {
+      const currentUser = getCurrentUser();
+      return currentUser && currentUser.id ? currentUser.id : 'guest';
+    }
+
+    function createInternalProductId() {
+      return `p_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+    }
+
+    function createApiId(ownerUserId) {
+      const normalizedOwner = String(ownerUserId || 'guest').replace(/[^a-zA-Z0-9]/g, '').slice(-6).toUpperCase() || 'GUEST';
+      return `API-${normalizedOwner}-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 5).toUpperCase()}`;
+    }
+
+    function slugifyApiName(name) { // create an API URL slug from the API name 
+      return String(name || 'api')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 40) || 'api';
+    }
+
+    function createGeneratedApiUrl(ownerUserId, apiName) { // create a unique API endpoint URL based on the owner user ID and API name
+      const ownerChunk = String(ownerUserId || 'guest').toLowerCase();
+      const nameChunk = slugifyApiName(apiName);
+      return `https://api.devpulse.local/v1/${ownerChunk}/${nameChunk}`;
+    }
+
+    function normalizeProduct(product) { // normalize product data with default values and validation
+      const safe = product && typeof product === 'object' ? product : {};
+      const ownerUserId = safe.ownerUserId || getCurrentUserId();
+      const quantity = Number.isFinite(Number(safe.quantity)) ? Number(safe.quantity) : 0;
+      const price = Number.isFinite(Number(safe.price)) ? Number(safe.price) : 0;
+      return {
+        id: safe.id || createInternalProductId(),
+        apiId: safe.apiId || createApiId(ownerUserId),
+        name: String(safe.name || '').trim(),
+        price,
+        status: ['Active', 'Draft', 'Deprecated'].includes(safe.status) ? safe.status : 'Draft',
+        picture: String(safe.picture || '').trim(),
+        quantity: Math.max(0, Math.floor(quantity)),
+        ownerUserId,
+        createdAt: safe.createdAt || Date.now(),
+        updatedAt: safe.updatedAt || Date.now()
+      };
+    }
+
+    function getDefaultProducts() {
+      const ownerUserId = getCurrentUserId();
+      const base = [
+        {
+          name: 'ETL Backend API',
+          price: 16000,
+          status: 'Active',
+          picture: 'assets/api-etl-backend.svg',
+          quantity: 5
+        },
+        {
+          name: 'VibeSync Monitoring API',
+          price: 14500,
+          status: 'Active',
+          picture: 'assets/api-vibesync-monitoring.svg',
+          quantity: 8
+        },
+        {
+          name: 'Face Detection Backend API',
+          price: 13200,
+          status: 'Deprecated',
+          picture: 'assets/api-face-detection.svg',
+          quantity: 3
+        },
+        {
+          name: 'Payment Core API',
+          price: 18900,
+          status: 'Active',
+          picture: 'assets/api-payment-core.svg',
+          quantity: 4
+        },
+        {
+          name: 'Weather Monitoring API',
+          price: 11800,
+          status: 'Active',
+          picture: 'assets/api-weather-monitoring.svg',
+          quantity: 8
+        }
+      ];
+
+      return base.map(item => normalizeProduct({
+        ...item,
+        ownerUserId
+      }));
+    }
+
+    function loadProducts() { // load products from localStorage with validation, normalization, and seeding logic
+      try {
+        const raw = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+        if (!raw) {
+          const defaults = getDefaultProducts();
+          localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(defaults));
+          localStorage.setItem(PRODUCTS_SEED_VERSION_KEY, PRODUCTS_SEED_VERSION);
+          return defaults;
+        }
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) {
+          const defaults = getDefaultProducts();
+          localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(defaults));
+          localStorage.setItem(PRODUCTS_SEED_VERSION_KEY, PRODUCTS_SEED_VERSION);
+          return defaults;
+        }
+        const normalized = parsed.map(normalizeProduct);
+        localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(normalized));
+        localStorage.setItem(PRODUCTS_SEED_VERSION_KEY, PRODUCTS_SEED_VERSION);
+        return normalized;
+      } catch (error) {
+        const defaults = getDefaultProducts();
+        localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(defaults));
+        localStorage.setItem(PRODUCTS_SEED_VERSION_KEY, PRODUCTS_SEED_VERSION);
+        return defaults;
+      }
+    }
+
+    function saveProducts(products) {
+      localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products.map(normalizeProduct)));
+    }
+
+    function parseNonNegativeNumber(value) { // utility function to parse a value as a non-negative number, returning 0 for invalid inputs
+      const num = Number(value);
+      if (!Number.isFinite(num) || num < 0) return 0;
+      return num;
+    }
+
+    function loadRevenueTotal() {
+      const raw = localStorage.getItem(TOTAL_REVENUE_STORAGE_KEY);
+      if (raw !== null) return parseNonNegativeNumber(raw);
+
+      const generated = loadGeneratedApis();
+      const products = loadProducts();
+      const priceByProductId = new Map(products.map(product => [product.id, parseNonNegativeNumber(product.price)]));
+      const seededRevenue = generated.reduce((sum, item) => {
+        const chargedPrice = parseNonNegativeNumber(item.chargedPrice);
+        if (chargedPrice > 0) return sum + chargedPrice;
+        return sum + parseNonNegativeNumber(priceByProductId.get(item.productId));
+      }, 0);
+
+      localStorage.setItem(TOTAL_REVENUE_STORAGE_KEY, String(seededRevenue));
+      return seededRevenue;
+    }
+
+    function setRevenueTotal(value) {
+      localStorage.setItem(TOTAL_REVENUE_STORAGE_KEY, String(parseNonNegativeNumber(value)));
+    }
+
+    function setEditingState(product) {
+      const isEditing = Boolean(product);
+      formHeading.textContent = isEditing ? 'Update API Product' : 'Add API Product';
+      saveProductBtn.textContent = isEditing ? 'Update API Product' : 'Save API Product';
+      cancelEditBtn.classList.toggle('hidden', !isEditing);
+
+      if (!isEditing) {
+        productForm.reset();
+        productIdInput.value = '';
+        statusInput.value = 'Active';
+        refreshCyberSelect(statusInput);
+        return;
+      }
+
+      productIdInput.value = product.id;
+      nameInput.value = product.name;
+      priceInput.value = product.price;
+      statusInput.value = product.status;
+      refreshCyberSelect(statusInput);
+      quantityInput.value = product.quantity;
+    }
+
+    function formatCurrency(value) {
+      return `PKR ${Number(value || 0).toLocaleString('en-PK')}`;
+    }
+
+    function getStatusBadgeClass(status) { // return CSS classes for status badges based on the product status
+      if (status === 'Active') return 'text-neon border-neon/30 bg-neon/10';
+      if (status === 'Deprecated') return 'text-red-300 border-red-400/30 bg-red-500/10';
+      return 'text-amber-300 border-amber-400/30 bg-amber-500/10';
+    }
+
+    function getFilteredProducts(products) {
+      const searchText = searchInput.value.trim().toLowerCase();
+      const selectedStatus = statusFilter.value;
+
+      let filtered = products.filter(product => {
+        const matchesSearch = !searchText
+          || product.name.toLowerCase().includes(searchText)
+          || product.apiId.toLowerCase().includes(searchText)
+          || product.status.toLowerCase().includes(searchText);
+        const matchesStatus = selectedStatus === 'All' || product.status === selectedStatus;
+        return matchesSearch && matchesStatus;
+      });
+
+      const sortMode = sortSelect.value;
+      filtered.sort((a, b) => {
+        if (sortMode === 'nameAsc') return a.name.localeCompare(b.name);
+        if (sortMode === 'nameDesc') return b.name.localeCompare(a.name);
+        if (sortMode === 'priceAsc') return a.price - b.price;
+        if (sortMode === 'priceDesc') return b.price - a.price;
+        if (sortMode === 'qtyAsc') return a.quantity - b.quantity;
+        if (sortMode === 'qtyDesc') return b.quantity - a.quantity;
+        return Number(b.createdAt) - Number(a.createdAt);
+      });
+
+      return filtered;
+    }
+
+    function loadGeneratedApis() { // load generated APIs from localStorage with validation and normalization
+      try {
+        const raw = localStorage.getItem(GENERATED_API_STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        const normalized = [];
+        const seen = new Set();
+        const products = loadProducts();
+        const priceByProductId = new Map(products.map(product => [product.id, parseNonNegativeNumber(product.price)]));
+
+        parsed
+          .filter(item => item && typeof item === 'object')
+          .forEach(item => {
+            const ownerUserId = String(item.ownerUserId || 'guest');
+            const productId = String(item.productId || slugifyApiName(item.productName));
+            const uniqueKey = `${ownerUserId}::${productId}`;
+            if (seen.has(uniqueKey)) return;
+            seen.add(uniqueKey);
+
+            normalized.push({
+              id: item.id || `ga_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+              productId,
+              productName: String(item.productName || 'API Product'),
+              productApiId: String(item.productApiId || ''),
+              ownerUserId,
+              ownerEmail: String(item.ownerEmail || 'guest@devpulse.com'),
+              generatedUrl: createGeneratedApiUrl(ownerUserId, item.productName),
+              chargedPrice: parseNonNegativeNumber(item.chargedPrice || priceByProductId.get(productId)),
+              createdAt: item.createdAt || Date.now()
+            });
+          });
+
+        localStorage.setItem(GENERATED_API_STORAGE_KEY, JSON.stringify(normalized));
+        return normalized;
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveGeneratedApis(items) {
+      localStorage.setItem(GENERATED_API_STORAGE_KEY, JSON.stringify(items));
+    }
+
+    function renderMetrics(products) { // calculate and render the metrics for total products, active products, and total revenue
+      const total = products.length;
+      const active = products.filter(product => product.status === 'Active').length;
+      const totalRevenue = loadRevenueTotal();
+
+      totalProductsMetric.textContent = total;
+      activeProductsMetric.textContent = active;
+      revenueMetric.textContent = formatCurrency(totalRevenue);
+    }
+
+    function getGeneratedSourceState(item, products) { // determine the state of a generated API based on its source product
+      const sourceProduct = products.find(product => product.id === item.productId);
+      if (!sourceProduct) {
+        return {
+          label: 'Deleted',
+          className: 'text-red-300 border-red-400/30 bg-red-500/10',
+          rowClassName: 'bg-slate-900/25 text-slate-400 opacity-70',
+          copyDisabled: true
+        };
+      }
+
+      if (sourceProduct.status === 'Draft') {
+        return {
+          label: 'Draft',
+          className: 'text-amber-300 border-amber-400/30 bg-amber-500/10',
+          rowClassName: 'bg-slate-900/25 text-slate-300 opacity-70',
+          copyDisabled: true
+        };
+      }
+
+      if (sourceProduct.status === 'Deprecated') {
+        return {
+          label: 'Deprecated',
+          className: 'text-red-300 border-red-400/30 bg-red-500/10',
+          rowClassName: 'bg-slate-900/25 text-slate-300 opacity-70',
+          copyDisabled: true
+        };
+      }
+
+      return {
+        label: 'Active',
+        className: 'text-neon border-neon/30 bg-neon/10',
+        rowClassName: 'hover:bg-white/5 transition-colors',
+        copyDisabled: false
+      };
+    }
+
+    function renderTable() {
+      const products = loadProducts();
+      const filteredProducts = getFilteredProducts(products);
+      syncProductViews(products, filteredProducts);
+    }
+
+    function syncProductViews(products, filteredProducts = getFilteredProducts(products)) { // synchronize the product table view with the current products data, applying filters and rendering metrics
+      renderMetrics(products);
+      productsTableBody.innerHTML = '';
+      emptyState.classList.toggle('hidden', filteredProducts.length > 0);
+
+      // render each product row in the table based on the filtered products list
+      filteredProducts.forEach(product => {
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-white/5 transition-colors';
+        row.innerHTML = `
+          <td class="px-3 sm:px-4 py-3 align-top">
+            <p class="font-bold text-white">${product.name}</p>
+            <p class="text-[10px] sm:text-xs text-slate-500 mt-1">${product.apiId}</p>
+          </td>
+          <td class="px-3 sm:px-4 py-3 align-top text-slate-200 font-semibold">${formatCurrency(product.price)}</td>
+          <td class="px-3 sm:px-4 py-3 align-top">
+            <span class="inline-flex px-2 py-1 rounded-full border text-[10px] sm:text-xs font-bold uppercase tracking-wide ${getStatusBadgeClass(product.status)}">${product.status}</span>
+          </td>
+          <td class="px-3 sm:px-4 py-3 align-top">
+            <img src="${product.picture}" alt="${product.name}" class="w-20 h-12 rounded-lg object-cover border border-white/10 bg-slate-900">
+          </td>
+          <td class="px-3 sm:px-4 py-3 align-top text-slate-200 font-semibold">${product.quantity}</td>
+          <td class="px-3 sm:px-4 py-3 align-top">
+            ${isCurrentUserAdmin()
+              ? `<div class="flex gap-2">
+                  <button type="button" data-action="edit" data-id="${product.id}" class="px-2.5 py-1.5 rounded-lg border border-cyber/30 bg-cyber/10 text-cyber text-xs font-bold transition-colors hover:bg-cyber hover:text-slate-950">Edit</button>
+                  <button type="button" data-action="delete" data-id="${product.id}" class="px-2.5 py-1.5 rounded-lg border border-red-400/30 bg-red-500/10 text-red-300 text-xs font-bold transition-colors hover:bg-red-500 hover:text-white">Delete</button>
+                </div>`
+              : `<span class="inline-flex rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] sm:text-xs font-bold text-slate-500">Admin Only</span>`}
+          </td>
+        `;
+        productsTableBody.appendChild(row);
+      });
+
+      renderGenerateOptions(products);
+      renderGeneratedApis();
+    }
+
+    function renderGenerateOptions(products) { // render the options for generating new API endpoints based on active products
+      const activeProducts = products.filter(product => product.status === 'Active' && product.quantity > 0);
+      generateProductSelect.innerHTML = '';
+
+      if (!activeProducts.length) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'No active APIs with remaining limit';
+        generateProductSelect.appendChild(option);
+        generateBtn.disabled = true;
+        generateBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        refreshCyberSelect(generateProductSelect);
+        return;
+      }
+
+      generateBtn.disabled = false;
+      generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      activeProducts.forEach(product => {
+        const option = document.createElement('option');
+        option.value = product.id;
+        option.textContent = `${product.name} | ${formatCurrency(product.price)} | Limit left: ${product.quantity}`;
+        generateProductSelect.appendChild(option);
+      });
+      refreshCyberSelect(generateProductSelect);
+    }
+
+    function renderGeneratedApis() { // render the table of generated API endpoints, applying visibility rules based on user role and source product state
+      const generated = loadGeneratedApis();
+      const products = loadProducts();
+      const isAdmin = isCurrentUserAdmin();
+      const currentUserId = getCurrentUserId();
+      const visible = isAdmin
+        ? generated
+        : generated.filter(item => item.ownerUserId === currentUserId);
+
+      generatedSubText.textContent = isAdmin
+        ? 'All generated API endpoints across accounts'
+        : 'Only APIs generated by your account';
+
+      generatedTableBody.innerHTML = '';
+      generatedEmptyState.classList.toggle('hidden', visible.length > 0);
+
+      visible
+        .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
+        .forEach(item => {
+          const row = document.createElement('tr');
+          const createdOn = new Date(item.createdAt).toLocaleString('en-PK');
+          const sourceState = getGeneratedSourceState(item, products);
+          row.className = sourceState.rowClassName || 'hover:bg-white/5 transition-colors';
+          row.innerHTML = `
+            <td class="px-3 sm:px-4 py-3 align-top">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="font-bold text-white">${item.productName}</p>
+                  ${sourceState.label !== 'Active'
+                    ? `<span class="inline-flex px-2 py-1 rounded-full border text-[10px] font-bold uppercase tracking-wide ${sourceState.className}">${sourceState.label}</span>`
+                    : ''}
+                </div>
+                <p class="text-[10px] sm:text-xs text-slate-500">${item.productApiId}</p>
+              </div>
+            </td>
+            <td class="px-3 sm:px-4 py-3 align-top">
+              <div class="flex items-start gap-2">
+                <a href="${item.generatedUrl}" target="_blank" rel="noopener noreferrer" class="min-w-0 flex-1 text-cyber break-all hover:text-neon">${item.generatedUrl}</a>
+                <button
+                  type="button"
+                  data-action="copy-generated-url"
+                  data-url="${item.generatedUrl}"
+                  data-copy-disabled="${sourceState.copyDisabled ? 'true' : 'false'}"
+                  ${sourceState.copyDisabled ? 'disabled' : ''}
+                  class="copy-link-btn inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-colors hover:border-cyber/40 hover:bg-cyber/10 hover:text-neon disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-white/10 disabled:hover:bg-white/5 disabled:hover:text-slate-300"
+                  aria-label="Copy generated URL"
+                  title="Copy generated URL"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+            <td class="px-3 sm:px-4 py-3 align-top text-slate-200">${item.ownerEmail}</td>
+            <td class="px-3 sm:px-4 py-3 align-top text-slate-400">${createdOn}</td>
+            <td class="px-3 sm:px-4 py-3 align-top">
+              <button
+                type="button"
+                data-action="delete-generated"
+                data-id="${item.id}"
+                class="px-2.5 py-1.5 rounded-lg border border-red-400/30 bg-red-500/10 text-red-300 text-xs font-bold transition-colors hover:bg-red-500 hover:text-white"
+              >Delete</button>
+            </td>
+          `;
+          generatedTableBody.appendChild(row);
+        });
+    }
+
+    function refreshProductViews() {
+      renderTable();
+      window.requestAnimationFrame(() => {
+        renderTable();
+      });
+    }
+
+    function openDeleteModal(target) { // open the delete confirmation modal with a specific target (product or generated API) and message
+      pendingDeleteTarget = target;
+      deleteModalText.textContent = target && target.message
+        ? target.message
+        : 'Confirm delete action.';
+      deleteModal.classList.remove('hidden');
+    }
+
+    function closeDeleteModal() { // close the delete confirmation modal and clear the pending delete target
+      pendingDeleteTarget = null;
+      deleteModal.classList.add('hidden');
+    }
+
+    function readFileAsDataUrl(file) { // read a file as a data URL using FileReader, returning a promise that resolves with the result or rejects on error
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result || ''));
+        reader.onerror = () => reject(new Error('Failed to read image file.'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function copyGeneratedUrl(url) { // copy the generated API URL to the clipboard, using the Clipboard API if available and falling back to a textarea method if necessary
+      if (!url) return false;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(url);
+          return true;
+        }
+      } catch (error) {
+        // Fall back below.
+      }
+
+      const textarea = document.createElement('textarea');
+      textarea.value = url;
+      textarea.setAttribute('readonly', 'readonly');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      const copied = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return copied;
+    }
+
+    productForm.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      if (!isCurrentUserAdmin()) {
+        showFormMessage('Only Admin can modify API product catalog.', 'error');
+        return;
+      }
+
+      const name = nameInput.value.trim();
+      const price = Number(priceInput.value);
+      const status = statusInput.value;
+      const selectedFile = pictureInput.files && pictureInput.files[0] ? pictureInput.files[0] : null;
+      const quantity = Number(quantityInput.value);
+
+      // API validation rules
+      if (name.length < 3) {
+        showFormMessage('API name must contain at least 3 characters.', 'error');
+        return;
+      }
+      if (!Number.isFinite(price) || price < 0) {
+        showFormMessage('Price must be a non-negative number.', 'error');
+        return;
+      }
+      if (!Number.isInteger(price / 100)) {
+        showFormMessage('Price must be in increments of 100 (0, 100, 200...).', 'error');
+        return;
+      }
+      if (!Number.isInteger(quantity) || quantity < 0) {
+        showFormMessage('Quantity must be a non-negative whole number.', 'error');
+        return;
+      }
+      const allProducts = loadProducts();
+      const editingId = productIdInput.value;
+      const ownerUserId = getCurrentUserId();
+
+      // Handle picture upload and conversion to data URL if a file is selected
+      let picture = '';
+      if (selectedFile) {
+        if (!selectedFile.type.startsWith('image/')) {
+          showFormMessage('Please upload a valid image file.', 'error');
+          return;
+        }
+        try {
+          picture = await readFileAsDataUrl(selectedFile);
+        } catch (error) {
+          showFormMessage('Could not read selected image file.', 'error');
+          return;
+        }
+      }
+
+      if (editingId) { // if editing an existing product, find it in the list and update its properties, otherwise add a new product to the list
+        const index = allProducts.findIndex(product => product.id === editingId);
+        if (index === -1) {
+          showFormMessage('Selected API product was not found.', 'error');
+          return;
+        }
+
+        allProducts[index] = normalizeProduct({
+          ...allProducts[index],
+          name,
+          price,
+          status,
+          picture: picture || allProducts[index].picture,
+          quantity,
+          updatedAt: Date.now()
+        });
+
+        saveProducts(allProducts);
+        showFormMessage('API product updated successfully.', 'success');
+      } else {
+        if (!picture) {
+          showFormMessage('Please upload an image from your device.', 'error');
+          return;
+        }
+        allProducts.push(normalizeProduct({
+          name,
+          price,
+          status,
+          picture,
+          quantity,
+          ownerUserId,
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        }));
+
+        saveProducts(allProducts);
+        showFormMessage('API product added successfully.', 'success');
+      }
+
+      setEditingState(null);
+      renderTable();
+    });
+
+    productsTableBody.addEventListener('click', event => { // handle click events on edit and delete buttons within the products table, checking permissions and opening modals as needed
+      const button = event.target.closest('button[data-action]');
+      if (!button) return;
+
+      if (!isCurrentUserAdmin()) {
+        showFormMessage('Only Admin can edit or delete API products.', 'error');
+        return;
+      }
+
+      const action = button.getAttribute('data-action');
+      const productId = button.getAttribute('data-id');
+      const products = loadProducts();
+      const product = products.find(item => item.id === productId);
+      if (!product) {
+        showFormMessage('API product could not be found.', 'error');
+        return;
+      }
+
+      if (action === 'edit') {
+        setEditingState(product);
+        showFormMessage(`Editing ${product.name}.`, 'success');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      if (action === 'delete') {
+        openDeleteModal({
+          type: 'product',
+          id: product.id,
+          message: `Delete "${product.name}" (${product.apiId}) from catalog?`
+        });
+      }
+    });
+
+    generatedTableBody.addEventListener('click', event => { // handle click events on copy and delete buttons within the generated APIs table, checking permissions and opening modals as neededs
+      const copyButton = event.target.closest('button[data-action="copy-generated-url"]');
+      if (copyButton) {
+        if (copyButton.disabled || copyButton.getAttribute('data-copy-disabled') === 'true') return;
+        const url = copyButton.getAttribute('data-url');
+        copyGeneratedUrl(url).then(success => {
+          if (success) {
+            showGeneratedTableMessage('Generated API link copied to clipboard.', 'success');
+          } else {
+            showGeneratedTableMessage('Could not copy the generated API link.', 'error');
+          }
+        });
+        return;
+      }
+
+      const button = event.target.closest('button[data-action="delete-generated"]');
+      if (!button) return;
+
+      const generatedId = button.getAttribute('data-id');
+      if (!generatedId) return;
+
+      const generated = loadGeneratedApis();
+      const targetItem = generated.find(item => item.id === generatedId);
+      if (!targetItem) {
+        showGenerateMessage('Generated API not found.', 'error');
+        return;
+      }
+
+      const isAdmin = isCurrentUserAdmin();
+      const canDelete = isAdmin || targetItem.ownerUserId === getCurrentUserId();
+      if (!canDelete) {
+        showGenerateMessage('You can only delete your own generated APIs.', 'error');
+        return;
+      }
+
+      openDeleteModal({
+        type: 'generated',
+        id: generatedId,
+        message: `Delete generated URL for "${targetItem.productName}"?`
+      });
+    });
+
+    confirmDeleteBtn.addEventListener('click', () => { // handle the confirmation of delete actions for both products and generated APIs, performing necessary checks and updates to localStorage and UI
+      if (!pendingDeleteTarget) return;
+
+      if (pendingDeleteTarget.type === 'product') {
+        if (!isCurrentUserAdmin()) {
+          closeDeleteModal();
+          showFormMessage('Only Admin can delete API products.', 'error');
+          return;
+        }
+        const deletingProductId = pendingDeleteTarget.id;
+        const products = loadProducts();
+        const updated = products.filter(product => product.id !== deletingProductId);
+        saveProducts(updated);
+        closeDeleteModal();
+        showFormMessage('API product deleted successfully.', 'success');
+        if (productIdInput.value === deletingProductId) {
+          setEditingState(null);
+        }
+        syncProductViews(updated);
+        return;
+      }
+
+      if (pendingDeleteTarget.type === 'generated') {
+        const generated = loadGeneratedApis();
+        const targetItem = generated.find(item => item.id === pendingDeleteTarget.id);
+        if (!targetItem) {
+          closeDeleteModal();
+          showGenerateMessage('Generated API not found.', 'error');
+          renderTable();
+          return;
+        }
+
+        const isAdmin = isCurrentUserAdmin();
+        const canDelete = isAdmin || targetItem.ownerUserId === getCurrentUserId();
+        if (!canDelete) {
+          closeDeleteModal();
+          showGenerateMessage('You can only delete your own generated APIs.', 'error');
+          return;
+        }
+
+        const updatedGenerated = generated.filter(item => item.id !== pendingDeleteTarget.id);
+        saveGeneratedApis(updatedGenerated);
+
+        const products = loadProducts();
+        const productIndex = products.findIndex(product => product.id === targetItem.productId);
+        if (productIndex !== -1) {
+          products[productIndex] = normalizeProduct({
+            ...products[productIndex],
+            quantity: Number(products[productIndex].quantity || 0) + 1,
+            updatedAt: Date.now()
+          });
+          saveProducts(products);
+        }
+
+        closeDeleteModal();
+        showGenerateMessage(`Generated API removed for ${targetItem.productName}. Limit restored by 1.`, 'success');
+        syncProductViews(products);
+      }
+    });
+
+    cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+    deleteModal.addEventListener('click', event => {
+      if (event.target === deleteModal) closeDeleteModal();
+    });
+
+    cancelEditBtn.addEventListener('click', () => {
+      setEditingState(null);
+      showFormMessage('Edit mode cancelled.', 'success');
+    });
+
+    [searchInput, statusFilter, sortSelect].forEach(control => {
+      control.addEventListener('input', renderTable);
+      control.addEventListener('change', renderTable);
+    });
+
+    generateForm.addEventListener('submit', async event => { // handle the generation of a new API endpoint based on the selected product, performing necessary checks, updates, and showing messages accordingly
+      event.preventDefault();
+
+      const selectedProductId = generateProductSelect.value;
+      if (!selectedProductId) {
+        showGenerateMessage('Select an API product first.', 'error');
+        return;
+      }
+
+      const products = loadProducts();
+      const index = products.findIndex(product => product.id === selectedProductId);
+      if (index === -1) {
+        showGenerateMessage('Selected API product no longer exists.', 'error');
+        renderTable();
+        return;
+      }
+
+      const product = products[index];
+      if (product.status !== 'Active') {
+        showGenerateMessage('You can only generate from Active API products.', 'error');
+        return;
+      }
+      if (product.quantity <= 0) {
+        showGenerateMessage('API limit is exhausted for this product.', 'error');
+        return;
+      }
+
+      const currentUserId = getCurrentUserId();
+      const generated = loadGeneratedApis();
+      const alreadyGenerated = generated.some(item => item.ownerUserId === currentUserId && item.productId === product.id);
+      if (alreadyGenerated) {
+        showGenerateMessage(`You already have a generated URL for ${product.name}.`, 'error');
+        return;
+      }
+
+      setGenerateButtonLoading(true);
+
+      try {
+        await wait(2500); // simulate generation delay
+
+        product.quantity -= 1;
+        product.updatedAt = Date.now();
+        products[index] = normalizeProduct(product);
+        saveProducts(products);
+
+        generated.push({
+          id: `ga_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+          productId: product.id,
+          productName: product.name,
+          productApiId: product.apiId,
+          ownerUserId: currentUserId,
+          ownerEmail: loggedEmail,
+          generatedUrl: createGeneratedApiUrl(currentUserId, product.name),
+          chargedPrice: parseNonNegativeNumber(product.price),
+          createdAt: Date.now()
+        });
+        saveGeneratedApis(generated);
+
+        const updatedRevenue = loadRevenueTotal() + parseNonNegativeNumber(product.price);
+        setRevenueTotal(updatedRevenue);
+
+        showGenerateMessage(`Personal API generated from ${product.name}. Remaining limit: ${product.quantity}.`, 'success');
+        renderTable();
+      } finally {
+        setGenerateButtonLoading(false);
+      }
+    });
+
+    function applyRoleView() { // adjust the visibility and interactivity of UI elements based on whether the current user is an admin or not
+      const isAdmin = isCurrentUserAdmin();
+      productAdminNotice.classList.toggle('hidden', isAdmin);
+
+      [nameInput, priceInput, statusInput, pictureInput, quantityInput].forEach(field => {
+        field.disabled = !isAdmin;
+      });
+
+      document.querySelectorAll('.number-step-btn').forEach(button => {
+        button.disabled = !isAdmin;
+      });
+
+      saveProductBtn.disabled = !isAdmin;
+      saveProductBtn.classList.toggle('opacity-40', !isAdmin);
+      saveProductBtn.classList.toggle('cursor-not-allowed', !isAdmin);
+      cancelEditBtn.disabled = !isAdmin;
+
+    }
+
+    setEditingState(null);
+    setupNumberSteppers();
+    applyRoleView();
+    renderTable();
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      auth.setLoggedIn(false);
+      location.href = 'login.html';
+    });
+    
+    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+    if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', () => {
+      auth.setLoggedIn(false);
+      location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

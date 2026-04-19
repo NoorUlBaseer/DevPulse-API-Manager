@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Face Detection Backend API illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f2937"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect x="260" y="110" width="680" height="460" rx="26" fill="#0b1220" stroke="#ef4444" stroke-width="8"/>
+  <rect x="340" y="170" width="520" height="340" rx="18" fill="none" stroke="#f59e0b" stroke-width="6" stroke-dasharray="14 10"/>
+  <g stroke="#22d3ee" stroke-width="7" fill="none" stroke-linecap="round">
+    <path d="M485 312c0-55 40-92 115-92s115 37 115 92"/>
+    <path d="M600 312v120"/>
+    <path d="M530 430c20 24 45 34 70 34s50-10 70-34"/>
+  </g>
+  <circle cx="540" cy="320" r="12" fill="#22d3ee"/>
+  <circle cx="660" cy="320" r="12" fill="#22d3ee"/>
+  <text x="80" y="620" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="42" font-weight="800">FACE DETECTION BACKEND API (DEPRECATED)</text>
+</svg>

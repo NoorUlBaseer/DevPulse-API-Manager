@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Payment Core API illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#064e3b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect x="190" y="140" width="820" height="410" rx="28" fill="#0b1220" stroke="#22c55e" stroke-width="7"/>
+  <rect x="250" y="210" width="700" height="95" rx="14" fill="#16a34a" opacity="0.18"/>
+  <rect x="250" y="340" width="460" height="70" rx="12" fill="#22c55e" opacity="0.14"/>
+  <rect x="250" y="435" width="220" height="55" rx="12" fill="#22c55e" opacity="0.2"/>
+  <circle cx="870" cy="437" r="65" fill="none" stroke="#22d3ee" stroke-width="10"/>
+  <path d="M848 437l16 17 29-31" fill="none" stroke="#22d3ee" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="80" y="635" fill="#e2e8f0" font-family="JetBrains Mono, monospace" font-size="48" font-weight="700">PAYMENT CORE API</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="ETL Backend API illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#052e16"/>
+      <stop offset="1" stop-color="#083344"/>
+    </linearGradient>
+    <linearGradient id="node" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g opacity="0.2" stroke="#94a3b8">
+    <path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200"/>
+  </g>
+  <g stroke="url(#node)" stroke-width="8" fill="none" stroke-linecap="round">
+    <path d="M220 150h210M220 340h210M220 530h210"/>
+    <path d="M520 150h210M520 340h210M520 530h210"/>
+    <path d="M820 340h170"/>
+    <path d="M430 150l90 190M430 530l90-190M730 150l90 190M730 530l90-190"/>
+  </g>
+  <g fill="#0f172a" stroke="url(#node)" stroke-width="6">
+    <rect x="140" y="110" width="180" height="80" rx="14"/>
+    <rect x="140" y="300" width="180" height="80" rx="14"/>
+    <rect x="140" y="490" width="180" height="80" rx="14"/>
+    <rect x="440" y="110" width="180" height="80" rx="14"/>
+    <rect x="440" y="300" width="180" height="80" rx="14"/>
+    <rect x="440" y="490" width="180" height="80" rx="14"/>
+    <rect x="740" y="300" width="180" height="80" rx="14"/>
+    <rect x="1000" y="300" width="140" height="80" rx="14"/>
+  </g>
+  <text x="80" y="640" fill="#e2e8f0" font-family="JetBrains Mono, monospace" font-size="48" font-weight="700">ETL BACKEND API</text>
+</svg>

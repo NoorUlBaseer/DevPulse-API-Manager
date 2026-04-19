@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Generic API placeholder illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#083344"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+
+  <g opacity="0.16" stroke="#94a3b8" stroke-width="2">
+    <path d="M0 110h1200M0 220h1200M0 330h1200M0 440h1200M0 550h1200"/>
+    <path d="M180 0v675M360 0v675M540 0v675M720 0v675M900 0v675M1080 0v675"/>
+  </g>
+
+  <rect x="180" y="120" width="840" height="435" rx="28" fill="#020617" stroke="url(#accent)" stroke-width="6"/>
+
+  <g fill="none" stroke="url(#accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 245h230l45 66h100l45-66h180"/>
+    <path d="M300 430h180l45-52h160l45 52h170"/>
+  </g>
+
+  <g fill="#0b1220" stroke="#22d3ee" stroke-width="5">
+    <rect x="260" y="208" width="160" height="70" rx="12"/>
+    <rect x="470" y="278" width="220" height="70" rx="12"/>
+    <rect x="760" y="208" width="180" height="70" rx="12"/>
+    <rect x="260" y="392" width="170" height="70" rx="12"/>
+    <rect x="730" y="392" width="190" height="70" rx="12"/>
+  </g>
+
+  <circle cx="600" cy="337" r="52" fill="none" stroke="#22c55e" stroke-width="10"/>
+  <path d="M576 337h48M600 313v48" stroke="#22c55e" stroke-width="10" stroke-linecap="round"/>
+
+  <text x="80" y="625" fill="#e2e8f0" font-family="JetBrains Mono, monospace" font-size="48" font-weight="800">GENERIC API IMAGE</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Weather Monitoring API illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c4a6e"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="320" cy="220" r="78" fill="#facc15"/>
+  <g fill="#e2e8f0">
+    <ellipse cx="540" cy="250" rx="120" ry="65"/>
+    <ellipse cx="660" cy="250" rx="100" ry="55"/>
+    <ellipse cx="470" cy="275" rx="95" ry="50"/>
+  </g>
+  <g stroke="#38bdf8" stroke-width="10" stroke-linecap="round">
+    <path d="M470 350v90"/>
+    <path d="M560 350v90"/>
+    <path d="M650 350v90"/>
+    <path d="M740 350v90"/>
+  </g>
+  <g stroke="#22d3ee" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M180 515h840"/>
+    <path d="M220 548h760"/>
+  </g>
+  <text x="80" y="635" fill="#e2e8f0" font-family="JetBrains Mono, monospace" font-size="46" font-weight="700">WEATHER MONITORING API</text>
+</svg>
