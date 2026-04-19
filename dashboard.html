@@ -269,41 +269,9 @@
         <div class="glass-card rounded-3xl p-5 sm:p-6 lg:p-8">
           <h3 class="text-xl font-bold text-white mb-6">System Logs</h3>
           
-          <div class="space-y-6">
-            <div class="flex gap-4">
-              <div class="w-8 h-8 rounded-full bg-neon/20 flex-shrink-0 flex items-center justify-center">
-                <div class="w-2 h-2 rounded-full bg-neon"></div>
-              </div>
+          <div id="systemLogsList" class="space-y-4"></div>
 
-              <div>
-                <p class="text-sm font-bold text-slate-200">New API Key Generated</p>
-                <p class="text-xs text-slate-500 font-medium">Production-Key-04 • 2m ago</p>
-              </div>
-            </div>
-
-            <div class="flex gap-4">
-              <div class="w-8 h-8 rounded-full bg-cyber/20 flex-shrink-0 flex items-center justify-center">
-                <div class="w-2 h-2 rounded-full bg-cyber"></div>
-              </div>
-              
-              <div>
-                <p class="text-sm font-bold text-slate-200">Rate Limit Warning</p>
-                <p class="text-xs text-slate-500 font-medium">IP: 192.168.1.1 • 15m ago</p>
-              </div>
-            </div>
-
-            <div class="flex gap-4 opacity-50">
-              <div class="w-8 h-8 rounded-full bg-slate-700 flex-shrink-0 flex items-center justify-center">
-                <div class="w-2 h-2 rounded-full bg-slate-400"></div>
-              </div>
-              <div>
-                <p class="text-sm font-bold text-slate-200">Backup Completed</p>
-                <p class="text-xs text-slate-500 font-medium">System Core • 1h ago</p>
-              </div>
-            </div>
-          </div>
-
-          <button class="w-full mt-8 py-3 border border-white/5 hover:bg-white/5 rounded-xl text-xs font-bold uppercase tracking-widest text-slate-400">View All Logs</button>
+          <button id="viewAllLogsBtn" type="button" class="w-full mt-8 py-3 border border-white/5 hover:bg-white/5 rounded-xl text-xs font-bold uppercase tracking-widest text-slate-400">View All Logs</button>
         </div>
       </div>
 
@@ -357,10 +325,13 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="notifications.js"></script>
+  
   <script>
     const GENERATED_API_STORAGE_KEY = 'devpulse_generated_apis';
     const TOTAL_REVENUE_STORAGE_KEY = 'devpulse_total_revenue';
     const PRODUCTS_STORAGE_KEY = 'devpulse_products';
+    const NOTIFICATIONS_STORAGE_KEY = 'devpulse_notifications';
 
     function parseNonNegativeNumber(value) { // Utility function to safely parse non-negative numbers, returns 0 for invalid inputs
       const num = Number(value);
@@ -412,12 +383,98 @@
       return seededRevenue;
     }
 
+    function loadNotifications() {
+      try {
+        const raw = localStorage.getItem(NOTIFICATIONS_STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(item => item && typeof item === 'object');
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function formatRelativeTime(timestamp) { // Format a timestamp as a relative time string
+      const diff = Math.max(0, Date.now() - Number(timestamp || Date.now()));
+      const minutes = Math.floor(diff / 60000);
+      if (minutes < 1) return 'just now';
+      if (minutes < 60) return `${minutes}m ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.floor(hours / 24);
+      return `${days}d ago`;
+    }
+
+    function escapeHtml(text) { // Simple function to escape HTML special characters to prevent XSS in log messages
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function renderSystemLogs() { // Load notifications, sort by most recent, and render the top 5 logs in the system logs section
+      const systemLogsList = document.getElementById('systemLogsList');
+      if (!systemLogsList) return;
+
+      const logs = loadNotifications()
+        .slice()
+        .sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
+        .slice(0, 5);
+
+      if (!logs.length) { // If there are no logs, display a friendly message instead of an empty list
+        systemLogsList.innerHTML = `
+          <div class="rounded-2xl border border-dashed border-white/10 bg-slate-900/30 p-4 text-sm text-slate-500">
+            No system activity yet.
+          </div>
+        `;
+        return;
+      }
+
+      systemLogsList.innerHTML = logs.map((log, index) => { // Assign different colors to log entries based on their index
+        const toneClasses = [
+          'bg-neon/20 text-neon',
+          'bg-cyber/20 text-cyber',
+          'bg-amber-500/20 text-amber-300',
+          'bg-slate-700 text-slate-400'
+        ];
+        const circleClass = toneClasses[index] || toneClasses[3];
+        const fadedClass = log.read ? '' : '';
+        return `
+          <div class="flex gap-4 ${fadedClass}">
+            <div class="w-8 h-8 rounded-full ${circleClass} flex-shrink-0 flex items-center justify-center">
+              <div class="w-2 h-2 rounded-full bg-current"></div>
+            </div>
+            <div class="min-w-0">
+              <p class="text-sm font-bold text-slate-200 break-words">${escapeHtml(log.message)}</p>
+              <p class="text-xs text-slate-500 font-medium">${formatRelativeTime(log.createdAt)}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
     // Load user data and populate dashboard metrics
     const users = auth.getStoredUsers();
     const generatedApis = loadGeneratedApis();
     document.getElementById('totalUsers').textContent = users.length;
     document.getElementById('totalOrders').textContent = generatedApis.length.toLocaleString('en-PK');
     document.getElementById('revenue').textContent = formatCurrency(loadRevenueTotal());
+
+    renderSystemLogs();
+
+    // Set up event listener for View All Logs button to open the notifications panel
+    const viewAllLogsBtn = document.getElementById('viewAllLogsBtn');
+    if (viewAllLogsBtn) {
+      viewAllLogsBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (window.devpulseNotifications && typeof window.devpulseNotifications.open === 'function') {
+          window.devpulseNotifications.open();
+        }
+      });
+    }
 
     // Display logged-in user's email
     const loggedEmail = localStorage.getItem('devpulse_loggedInUser') || 'guest@devpulse.com';

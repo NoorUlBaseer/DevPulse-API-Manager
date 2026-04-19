@@ -312,6 +312,8 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="notifications.js"></script>
+
   <script>
     // User Authentication & Session Handling
     const loggedEmail = localStorage.getItem('devpulse_loggedInUser') || 'guest@devpulse.com';
@@ -554,6 +556,12 @@
       }
     }
 
+    function notify(message) { // Send a notification to the user using the notifications system if available
+      if (window.devpulseNotifications && typeof window.devpulseNotifications.add === 'function') {
+        window.devpulseNotifications.add(message);
+      }
+    }
+
     function resetForm() {
       editingUserIdInput.value = '';
       userForm.reset();
@@ -674,11 +682,13 @@
 
         users[editingIndex] = { ...users[editingIndex], ...payload };
         showMessage('User updated successfully.', 'success');
+        notify(`User updated: ${payload.name} (${payload.role})`);
       } else {
         users.push({ ...payload,
           password: '123'
         });
         showMessage('User added successfully.', 'success');
+        notify(`New user registered: ${payload.name}`);
       }
 
       saveUsers(users);
@@ -735,6 +745,7 @@
           const isSelfDelete = selected.email.toLowerCase() === loggedEmail.toLowerCase();
           users = users.filter((user) => user.id !== id);
           saveUsers(users);
+          notify(`User deleted: ${selected.name}`);
 
           if (isSelfDelete) {
             auth.setLoggedIn(false);

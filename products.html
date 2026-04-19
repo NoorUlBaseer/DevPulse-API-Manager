@@ -428,6 +428,7 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="notifications.js"></script>
   
   <script>
     const loggedEmail = localStorage.getItem('devpulse_loggedInUser') || 'guest@devpulse.com';
@@ -644,6 +645,12 @@
       generatedTableMessage.classList.remove('text-red-400', 'text-green-400');
       generatedTableMessage.classList.add(type === 'success' ? 'text-green-400' : 'text-red-400');
       scheduleMessageClear(generatedTableMessage, 'generatedTable');
+    }
+
+    function notify(message) { // send a notification using the devpulseNotifications system if available
+      if (window.devpulseNotifications && typeof window.devpulseNotifications.add === 'function') {
+        window.devpulseNotifications.add(message);
+      }
     }
 
     function setGenerateButtonLoading(isLoading) { // loading state of the generate button with visual feedback and disabling interactions
@@ -1223,6 +1230,7 @@
 
         saveProducts(allProducts);
         showFormMessage('API product updated successfully.', 'success');
+        notify(`API product updated: ${name}`);
       } else {
         if (!picture) {
           showFormMessage('Please upload an image from your device.', 'error');
@@ -1241,6 +1249,7 @@
 
         saveProducts(allProducts);
         showFormMessage('API product added successfully.', 'success');
+        notify(`New API product added: ${name}`);
       }
 
       setEditingState(null);
@@ -1337,6 +1346,7 @@
         saveProducts(updated);
         closeDeleteModal();
         showFormMessage('API product deleted successfully.', 'success');
+        notify('API product deleted from catalog.');
         if (productIdInput.value === deletingProductId) {
           setEditingState(null);
         }
@@ -1378,6 +1388,7 @@
 
         closeDeleteModal();
         showGenerateMessage(`Generated API removed for ${targetItem.productName}. Limit restored by 1.`, 'success');
+        notify(`Generated API deleted: ${targetItem.productName}`);
         syncProductViews(products);
       }
     });
@@ -1459,6 +1470,7 @@
         setRevenueTotal(updatedRevenue);
 
         showGenerateMessage(`Personal API generated from ${product.name}. Remaining limit: ${product.quantity}.`, 'success');
+        notify(`Order placed: ${product.name} API generated`);
         renderTable();
       } finally {
         setGenerateButtonLoading(false);

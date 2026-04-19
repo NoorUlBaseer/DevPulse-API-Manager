@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260419-3">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -126,6 +126,25 @@
             <span class="text-[10px] sm:text-xs font-bold text-slate-400 whitespace-nowrap">API Status: Optimal</span>
           </div>
 
+          <div id="notificationsRoot" class="relative shrink-0">
+            <button id="notificationsBtn" class="notification-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Notifications">
+              <svg class="w-5 h-5 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+
+              <span id="notificationsBadge" class="hidden notification-badge">0</span>
+            </button>
+
+            <div id="notificationsDropdown" class="hidden absolute right-0 mt-3 z-[90] notifications-panel">
+              <div class="notifications-panel-header">
+                <p class="text-sm font-bold text-white">Notifications</p>
+                <button id="markAllReadBtn" class="notifications-mark-all-btn">Mark All Read</button>
+              </div>
+
+              <div id="notificationsList" class="notifications-list custom-scrollbar"></div>
+            </div>
+          </div>
+
           <div class="flex flex-col items-end min-w-0 shrink-0">
             <span id="userInfo" class="text-sm font-bold text-white break-words text-right max-w-[12rem] lg:max-w-[16rem]"></span>
             <span class="text-xs text-neon uppercase tracking-tighter whitespace-nowrap">Developer Tier</span>
@@ -134,12 +153,31 @@
           <button id="logoutBtn" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500 hover:text-white transition-all text-sm font-bold whitespace-nowrap">Log Out</button>
         </nav>
         
-        <div class="md:hidden">
+        <div class="md:hidden flex items-center gap-2">
+          <div class="relative">
+            <button id="mobileNotificationsBtn" class="notification-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Notifications">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+
+              <span id="mobileNotificationsBadge" class="hidden notification-badge">0</span>
+            </button>
+          </div>
+
           <button aria-label="menu" aria-expanded="false" id="menuBtn" class="text-slate-200">☰</button>
         </div>
       </div>
 
-      <div id="mobileMenu" class="hidden md:hidden fixed left-4 right-4 z-[70] rounded-xl border border-white/10 bg-slate-950/95 backdrop-blur-xl px-4 py-4 shadow-2xl" style="top: calc(var(--header-height, 4rem) + 0.5rem);">
+      <div id="mobileNotificationsDropdown" class="hidden md:hidden fixed left-4 right-4 z-[80] notifications-panel mobile-overlay-panel">
+        <div class="notifications-panel-header">
+          <p class="text-sm font-bold text-white">Notifications</p>
+          <button id="mobileMarkAllReadBtn" class="notifications-mark-all-btn">Mark All Read</button>
+        </div>
+
+        <div id="mobileNotificationsList" class="notifications-list custom-scrollbar"></div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden fixed left-4 right-4 z-[70] rounded-xl border border-white/10 bg-slate-950/95 backdrop-blur-xl px-4 py-4 shadow-2xl mobile-overlay-panel">
         <nav class="flex flex-col gap-3">
           <a href="index.html" class="inline-flex items-center px-3 py-2 rounded-md text-neon border border-neutral-700 bg-neutral-800/30 font-medium mobile-link">Exit to Home</a>
           
@@ -293,6 +331,7 @@
     const PRODUCTS_STORAGE_KEY = 'devpulse_products';
     const GENERATED_API_STORAGE_KEY = 'devpulse_generated_apis';
     const TOTAL_REVENUE_STORAGE_KEY = 'devpulse_total_revenue';
+    const NOTIFICATIONS_STORAGE_KEY = 'devpulse_notifications';
 
     function readJsonArray(key) {
       try {
@@ -341,6 +380,192 @@
         if (charged > 0) return sum + charged;
         return sum + parseNonNegativeNumber(productPriceMap.get(String(item.productId || '')));
       }, 0);
+    }
+
+    function createNotificationId() {
+      return `n_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    }
+
+    function normalizeNotification(item) { // utility function to ensure a notification object has the expected structure and types
+      const safe = item && typeof item === 'object' ? item : {};
+      return {
+        id: String(safe.id || createNotificationId()),
+        message: String(safe.message || 'System update available'),
+        createdAt: Number(safe.createdAt) || Date.now(),
+        read: Boolean(safe.read)
+      };
+    }
+
+    function getDefaultNotifications() {
+      return [];
+    }
+
+    function getNotifications() {
+      const existing = readJsonArray(NOTIFICATIONS_STORAGE_KEY).map(normalizeNotification);
+      if (existing.length) return existing;
+      const seeded = getDefaultNotifications().map(normalizeNotification);
+      localStorage.setItem(NOTIFICATIONS_STORAGE_KEY, JSON.stringify(seeded));
+      return seeded;
+    }
+
+    function saveNotifications(notifications) {
+      localStorage.setItem(NOTIFICATIONS_STORAGE_KEY, JSON.stringify(notifications.map(normalizeNotification)));
+    }
+
+    function formatNotificationTime(timestamp) { // utility function to convert a timestamp into a human-readable relative time format
+      const diff = Math.max(0, Date.now() - Number(timestamp || Date.now()));
+      const minutes = Math.floor(diff / (1000 * 60));
+      if (minutes < 1) return 'just now';
+      if (minutes < 60) return `${minutes}m ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.floor(hours / 24);
+      return `${days}d ago`;
+    }
+
+    function renderNotifications() { // main function to render the notifications list in both desktop and mobile panels
+      const listEl = document.getElementById('notificationsList');
+      const mobileListEl = document.getElementById('mobileNotificationsList');
+      const badgeEl = document.getElementById('notificationsBadge');
+      const mobileBadgeEl = document.getElementById('mobileNotificationsBadge');
+      const notifications = getNotifications().sort((a, b) => b.createdAt - a.createdAt);
+      const latest = notifications.slice(0, 10);
+      const unreadCount = notifications.filter(item => !item.read).length;
+
+      // Generate HTML for notifications list, applying different styles for read/unread items and including action buttons
+      const itemHtml = latest.length
+        ? latest.map(item => `
+          <div class="notification-item ${item.read ? '' : 'is-unread'}">
+            <div class="notification-body">
+              <div class="notification-content">
+                <p class="notification-message break-words">${item.message}</p>
+                <p class="notification-time">${formatNotificationTime(item.createdAt)}</p>
+              </div>
+              <div class="notification-actions">
+                ${item.read ? '' : `<button data-action="read" data-id="${item.id}" class="notification-action-btn read">Read</button>`}
+                <button data-action="delete" data-id="${item.id}" class="notification-action-btn delete">Delete</button>
+              </div>
+            </div>
+          </div>
+        `).join('')
+        : '<div class="notifications-empty">No notifications</div>';
+
+      if (listEl) listEl.innerHTML = itemHtml;
+      if (mobileListEl) mobileListEl.innerHTML = itemHtml;
+
+      [badgeEl, mobileBadgeEl].forEach(el => {
+        if (!el) return;
+        if (unreadCount > 0) {
+          el.textContent = unreadCount > 99 ? '99+' : String(unreadCount);
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
+    }
+
+    function markNotificationRead(notificationId) {
+      const notifications = getNotifications();
+      const updated = notifications.map(item => item.id === notificationId ? { ...item, read: true } : item);
+      saveNotifications(updated);
+      renderNotifications();
+    }
+
+    function deleteNotification(notificationId) {
+      const notifications = getNotifications();
+      const updated = notifications.filter(item => item.id !== notificationId);
+      saveNotifications(updated);
+      renderNotifications();
+    }
+
+    function markAllNotificationsRead() {
+      const notifications = getNotifications();
+      const updated = notifications.map(item => ({ ...item, read: true }));
+      saveNotifications(updated);
+      renderNotifications();
+    }
+
+    function togglePanel(panel, trigger, forceOpen) { // utility function to toggle the visibility of a dropdown panel
+      if (!panel || !trigger) return;
+      const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : panel.classList.contains('hidden');
+      panel.classList.toggle('hidden', !shouldOpen);
+      panel.classList.toggle('is-open', shouldOpen);
+      trigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+    }
+
+    function wireNotificationEvents() { // main function to set up event listeners for notification interactions
+      const desktopBtn = document.getElementById('notificationsBtn');
+      const desktopPanel = document.getElementById('notificationsDropdown');
+      const mobileBtn = document.getElementById('mobileNotificationsBtn');
+      const mobilePanel = document.getElementById('mobileNotificationsDropdown');
+      const desktopList = document.getElementById('notificationsList');
+      const mobileList = document.getElementById('mobileNotificationsList');
+      const markAllReadBtn = document.getElementById('markAllReadBtn');
+      const mobileMarkAllReadBtn = document.getElementById('mobileMarkAllReadBtn');
+
+      if (desktopBtn && desktopPanel) {
+        desktopBtn.addEventListener('click', () => {
+          togglePanel(mobilePanel, mobileBtn, false);
+          togglePanel(desktopPanel, desktopBtn);
+        });
+      }
+
+      if (mobileBtn && mobilePanel) {
+        mobileBtn.addEventListener('click', () => {
+          togglePanel(desktopPanel, desktopBtn, false);
+          togglePanel(mobilePanel, mobileBtn);
+        });
+      }
+
+      [desktopList, mobileList].forEach(list => {
+        if (!list) return;
+        list.addEventListener('click', event => {
+          const actionBtn = event.target.closest('button[data-action]');
+          if (!actionBtn) return;
+          event.stopPropagation();
+          const action = actionBtn.getAttribute('data-action');
+          const id = actionBtn.getAttribute('data-id');
+          if (!id) return;
+          if (action === 'read') markNotificationRead(id);
+          if (action === 'delete') deleteNotification(id);
+        });
+      });
+
+      if (markAllReadBtn) {
+        markAllReadBtn.addEventListener('click', event => {
+          event.stopPropagation();
+          markAllNotificationsRead();
+        });
+      }
+      if (mobileMarkAllReadBtn) {
+        mobileMarkAllReadBtn.addEventListener('click', event => {
+          event.stopPropagation();
+          markAllNotificationsRead();
+        });
+      }
+
+      if (desktopPanel) desktopPanel.addEventListener('click', event => event.stopPropagation());
+      if (mobilePanel) mobilePanel.addEventListener('click', event => event.stopPropagation());
+
+      document.addEventListener('click', event => {
+        const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
+        const root = document.getElementById('notificationsRoot');
+        const target = event.target;
+        if (root && !root.contains(target) && !path.includes(root)) {
+          togglePanel(desktopPanel, desktopBtn, false);
+        }
+
+        if (mobilePanel && mobileBtn && !mobilePanel.contains(target) && !mobileBtn.contains(target) && !path.includes(mobilePanel) && !path.includes(mobileBtn)) {
+          togglePanel(mobilePanel, mobileBtn, false);
+        }
+      });
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          togglePanel(desktopPanel, desktopBtn, false);
+          togglePanel(mobilePanel, mobileBtn, false);
+        }
+      });
     }
 
     function buildStatusSeries(products) { // utility function to count the number of products in each status category
@@ -515,6 +740,8 @@
         });
       }
     }
+    renderNotifications();
+    wireNotificationEvents();
     createCharts();
   </script>
 </body>
