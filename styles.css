@@ -12,6 +12,292 @@ body {
     flex-direction: column;
 }
 
+/* Light theme overrides */
+html[data-theme='light'] body,
+body.theme-light {
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    color: #0f172a;
+}
+
+body.theme-light .grid-bg {
+    background-image: radial-gradient(rgba(34, 197, 94, 0.08) 1px, transparent 0);
+}
+
+body.theme-light header,
+body.theme-light aside,
+body.theme-light #mobileMenu,
+body.theme-light footer {
+    background: rgba(248, 250, 252, 0.92) !important;
+    border-color: rgba(148, 163, 184, 0.22) !important;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+}
+
+body.theme-light .glass-card,
+body.theme-light .metric-card,
+body.theme-light .notifications-panel,
+body.theme-light .notification-trigger,
+body.theme-light .cyber-select-trigger,
+body.theme-light .cyber-select-menu,
+body.theme-light .notification-item,
+body.theme-light .notifications-empty,
+body.theme-light .number-step-btn {
+    background: rgba(255, 255, 255, 0.82) !important;
+    border-color: rgba(148, 163, 184, 0.22) !important;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+}
+
+body.theme-light .glass-card:hover,
+body.theme-light .metric-card:hover {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-color: rgba(34, 197, 94, 0.25) !important;
+}
+
+body.theme-light .text-white { color: #0f172a !important; }
+body.theme-light .text-slate-200 { color: #1e293b !important; }
+body.theme-light .text-slate-300 { color: #334155 !important; }
+body.theme-light .text-slate-400 { color: #475569 !important; }
+body.theme-light .text-slate-500 { color: #64748b !important; }
+body.theme-light .text-slate-600 { color: #94a3b8 !important; }
+
+body.theme-light .bg-darkness\/80,
+body.theme-light .bg-darkness\/90,
+body.theme-light .bg-darkness\/95,
+body.theme-light .bg-darkness\/50,
+body.theme-light .bg-darkness {
+    background-color: rgba(248, 250, 252, 0.94) !important;
+}
+
+body.theme-light .bg-slate-950\/90,
+body.theme-light .bg-slate-950\/95,
+body.theme-light .bg-slate-950\/80,
+body.theme-light .bg-slate-950\/30,
+body.theme-light .bg-slate-950 {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body.theme-light .bg-slate-900\/50,
+body.theme-light .bg-slate-900\/40,
+body.theme-light .bg-slate-900\/30,
+body.theme-light .bg-slate-900\/25,
+body.theme-light .bg-slate-900\/80,
+body.theme-light .bg-slate-900\/75,
+body.theme-light .bg-slate-900 {
+    background-color: rgba(241, 245, 249, 0.9) !important;
+}
+
+/* Landing page light theme overrides */
+body.theme-light header.bg-neutral-900\/95,
+body.theme-light footer.bg-neutral-950,
+body.theme-light section.bg-neutral-900\/60 {
+    background-color: rgba(248, 250, 252, 0.95) !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+    color: #0f172a !important;
+}
+
+body.theme-light header .text-slate-100,
+body.theme-light header .text-slate-200,
+body.theme-light footer .text-slate-200,
+body.theme-light section .text-white {
+    color: #0f172a !important;
+}
+
+body.theme-light .bg-neutral-800\/40,
+body.theme-light .bg-neutral-800\/30,
+body.theme-light .bg-slate-800\/60 {
+    background-color: rgba(255, 255, 255, 0.88) !important;
+    border-color: rgba(148, 163, 184, 0.22) !important;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08) !important;
+}
+
+body.theme-light .text-slate-400 {
+    color: #64748b !important;
+}
+
+body.theme-light .text-slate-300 {
+    color: #334155 !important;
+}
+
+body.theme-light .bg-neutral-900,
+body.theme-light .bg-neutral-900\/60,
+body.theme-light body {
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%) !important;
+}
+
+body.theme-light .border-white\/10,
+body.theme-light .border-white\/5 {
+    border-color: rgba(148, 163, 184, 0.22) !important;
+}
+
+body.theme-light .text-slate-200,
+body.theme-light .text-slate-100,
+body.theme-light .text-white {
+    color: #0f172a !important;
+}
+
+body.theme-light .text-neon {
+    color: #0f766e !important;
+}
+
+body.theme-light .bg-neon {
+    background-color: #22c55e !important;
+}
+
+body.theme-light .bg-gradient-to-br.from-slate-900.via-slate-800.to-slate-900 {
+    background-image: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%) !important;
+}
+
+body.theme-light .text-white\/80,
+body.theme-light .text-white\/90 {
+    color: rgba(15, 23, 42, 0.8) !important;
+}
+
+body.theme-light .landing-hero-overlay-text {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.theme-light input,
+body.theme-light select,
+body.theme-light textarea {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #0f172a !important;
+    border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+body.theme-light .notification-action-btn.read,
+body.theme-light .notification-action-btn.delete,
+body.theme-light .metric-badge,
+body.theme-light .mobile-link {
+    background: rgba(255, 255, 255, 0.86) !important;
+}
+
+body.theme-light .notification-message,
+body.theme-light .notification-time,
+body.theme-light .metric-caption,
+body.theme-light .metric-kicker {
+    color: #334155 !important;
+}
+
+body.theme-light .metric-value {
+    color: #0f172a !important;
+}
+
+body.theme-light .metric-tag,
+body.theme-light .metric-badge {
+    color: #0f172a !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+body.theme-light .metric-tag.is-neon,
+body.theme-light .metric-badge.is-neon {
+    color: #166534 !important;
+    background: rgba(34, 197, 94, 0.12) !important;
+    border-color: rgba(34, 197, 94, 0.28) !important;
+}
+
+body.theme-light .metric-tag.is-cyber,
+body.theme-light .metric-badge.is-cyber {
+    color: #0e7490 !important;
+    background: rgba(6, 182, 212, 0.12) !important;
+    border-color: rgba(6, 182, 212, 0.28) !important;
+}
+
+body.theme-light .metric-tag.is-amber,
+body.theme-light .metric-badge.is-amber {
+    color: #92400e !important;
+    background: rgba(245, 158, 11, 0.14) !important;
+    border-color: rgba(245, 158, 11, 0.28) !important;
+}
+
+/* Some pages include legacy inline white text colors; force readable text in light theme. */
+body.theme-light [style*="color:#ffffff"],
+body.theme-light [style*="color: #ffffff"],
+body.theme-light [style*="color:#fff"],
+body.theme-light [style*="color: #fff"] {
+    color: #0f172a !important;
+}
+
+body.theme-light .notification-badge {
+    box-shadow: 0 0 0 2px rgba(248, 250, 252, 0.95);
+}
+
+/* Ensure readable contrast for the custom analytics range dropdown in light mode. */
+body.theme-light .cyber-select-trigger {
+    background: rgba(255, 255, 255, 0.96) !important;
+    color: #0f172a !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+body.theme-light .cyber-select-trigger:hover,
+body.theme-light .cyber-select-shell.is-open .cyber-select-trigger {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-color: rgba(6, 182, 212, 0.42) !important;
+}
+
+body.theme-light .cyber-select-trigger-label {
+    color: #334155 !important;
+}
+
+body.theme-light .cyber-select-trigger-meta {
+    color: #0e7490 !important;
+    background: rgba(6, 182, 212, 0.14) !important;
+    border-color: rgba(6, 182, 212, 0.3) !important;
+}
+
+body.theme-light .cyber-select,
+body.theme-light .cyber-select option {
+    color-scheme: light;
+}
+
+body.theme-light .cyber-select {
+    background-color: rgba(255, 255, 255, 0.96) !important;
+    color: #0f172a !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+body.theme-light .cyber-select:hover,
+body.theme-light .cyber-select:focus {
+    border-color: rgba(6, 182, 212, 0.5) !important;
+}
+
+body.theme-light .cyber-select option {
+    background: #ffffff !important;
+    color: #0f172a !important;
+}
+
+body.theme-light .cyber-select-menu {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98)) !important;
+    border-color: rgba(148, 163, 184, 0.24) !important;
+}
+
+body.theme-light .cyber-select-option {
+    color: #334155 !important;
+}
+
+body.theme-light .cyber-select-option:hover,
+body.theme-light .cyber-select-option.is-selected {
+    color: #0f172a !important;
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.14), rgba(6, 182, 212, 0.14)) !important;
+}
+
+/* Improve readability in the sidebar System Engine status block in light mode. */
+body.theme-light #sidebarEngineBlock,
+body.theme-light .bg-darkness\/50 {
+    background: rgba(255, 255, 255, 0.93) !important;
+    border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+body.theme-light #sidebarEngineBlock .text-slate-500,
+body.theme-light .bg-darkness\/50 .text-slate-500 {
+    color: #475569 !important;
+}
+
+body.theme-light #sidebarEngineBlock .text-slate-300,
+body.theme-light .bg-darkness\/50 .text-slate-300 {
+    color: #1e293b !important;
+}
+
+/* General layout styles (dark theme) */
 main {
     flex: 1 0 auto;
     padding-top: var(--header-height, 4rem);
@@ -111,9 +397,9 @@ main {
 }
 
 .metric-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(34, 197, 94, 0.35);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 22px 44px rgba(2, 6, 23, 0.36), 0 0 0 1px rgba(34, 197, 94, 0.14);
+    transform: translateY(-6px) scale(1.035);
+    border-color: rgba(34, 197, 94, 0.8);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 28px 54px rgba(2, 6, 23, 0.42), 0 0 0 1px rgba(34, 197, 94, 0.18);
 }
 
 .metric-card > * {
@@ -689,6 +975,58 @@ input[type='number'].number-step-input::-webkit-inner-spin-button {
     box-shadow: 0 0 0 2px rgba(2, 6, 23, 0.8);
 }
 
+/* Custom styled theme switch toggle */
+.theme-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.theme-switch input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.theme-switch-track {
+    width: 3.5rem;
+    height: 1.9rem;
+    padding: 0.18rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.88));
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.theme-switch-thumb {
+    display: block;
+    width: 1.45rem;
+    height: 1.45rem;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, #f8fafc, #e2e8f0);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.22);
+    transform: translateX(0);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-switch input:checked + .theme-switch-track {
+    border-color: rgba(34, 197, 94, 0.42);
+    background: linear-gradient(180deg, rgba(34, 197, 94, 0.18), rgba(6, 182, 212, 0.18));
+}
+
+.theme-switch input:checked + .theme-switch-track .theme-switch-thumb {
+    transform: translateX(1.55rem);
+}
+
+.theme-switch:hover .theme-switch-track {
+    border-color: rgba(6, 182, 212, 0.42);
+}
+
+/* Add hover effect to notification items */
 .notification-item:hover {
     background: rgba(30, 41, 59, 0.5);
 }

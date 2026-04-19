@@ -1,4 +1,58 @@
 document.addEventListener('DOMContentLoaded', () => { // Animate counters
+  const THEME_STORAGE_KEY = 'devpulse_theme';
+  const THEME_DARK = 'dark';
+  const THEME_LIGHT = 'light';
+
+  function getSavedTheme() {
+    try {
+      const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+      if (storedTheme === THEME_DARK || storedTheme === THEME_LIGHT) return storedTheme;
+      return THEME_LIGHT;
+    } catch (error) {
+      return THEME_LIGHT;
+    }
+  }
+
+  function applyTheme(theme) {
+    const normalizedTheme = theme === THEME_LIGHT ? THEME_LIGHT : THEME_DARK;
+    const body = document.body;
+    document.documentElement.dataset.theme = normalizedTheme;
+    if (body) {
+      body.classList.toggle('theme-light', normalizedTheme === THEME_LIGHT);
+      body.classList.toggle('theme-dark', normalizedTheme === THEME_DARK);
+    }
+    return normalizedTheme;
+  }
+
+  function syncThemeToggle(theme) { // update the state of the theme toggle switch and its label/status
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleLabel = document.getElementById('themeToggleLabel');
+    const themeToggleStatus = document.getElementById('themeToggleStatus');
+
+    if (themeToggle) themeToggle.checked = theme === THEME_DARK;
+    if (themeToggleLabel) themeToggleLabel.textContent = theme === THEME_DARK ? 'Dark mode enabled' : 'Dark mode disabled';
+    if (themeToggleStatus) themeToggleStatus.textContent = theme === THEME_DARK ? 'Dark' : 'Light';
+  }
+
+  function setTheme(theme) {
+    const normalizedTheme = applyTheme(theme);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, normalizedTheme);
+    } catch (error) {
+      // ignore storage failures
+    }
+    syncThemeToggle(normalizedTheme);
+  }
+
+  setTheme(getSavedTheme());
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle && !themeToggle.dataset.themeBound) {
+    themeToggle.dataset.themeBound = 'true';
+    themeToggle.addEventListener('change', () => {
+      setTheme(themeToggle.checked ? THEME_DARK : THEME_LIGHT);
+    });
+  }
+
   const counters = document.querySelectorAll('[data-target]');
   counters.forEach(el => {
     const targetRaw = el.getAttribute('data-target');
